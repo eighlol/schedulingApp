@@ -1,0 +1,31 @@
+﻿<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Pasākumi</h1>
+    </md-toolbar>
+    <div layout-padding>
+        <md-autocomplete md-search-text="vm.searchText"
+                         md-items="item in vm.events | filter: vm.searchText"
+                         md-item-text="item.name"
+                         md-min-length="3"
+                         placeholder="filtrēt sarakstu">
+            <md-item-template>
+                <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.name}}</span>
+            </md-item-template>
+            <md-not-found>
+                <span>Nav atrasts pasākums ar "{{vm.searchText}}" nosaukumu</span>
+            </md-not-found>
+        </md-autocomplete>
+
+    </div>
+    <md-content class="scrollable-nav-content">
+        <md-list>
+            <md-list-item ng-repeat="event in vm.events | filter: vm.searchText | orderBy: '-created'">
+                <md-button ng-click="vm.selectEvent(event)" ng-class="{'selected': event === vm.selectedEvent}">{{event.name}}</md-button>
+            </md-list-item>
+        </md-list>
+    </md-content>
+    <md-button class="md-fab md-fab-bottom-right" ng-click="vm.addEvent($event)">
+        <ng-md-icon icon="add"></ng-md-icon>
+    </md-button>
+
+</md-sidenav>

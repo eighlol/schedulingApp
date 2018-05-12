@@ -1,0 +1,88 @@
+﻿<md-dialog flex="66">
+    <form name="eventForm" ng-submit="addCtrl.saveEvent()">
+        <md-dialog-content>
+            <div layout="column" layout-padding>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Nosaukums</label>
+                        <input ng-model="addCtrl.event.name" name="name" ng-minlength="5" ng-maxlength="255" required/>
+                        <div ng-messages="eventForm.name.$error">
+                            <div ng-message="required">Ievadiet nosaukumu.</div>
+                            <div ng-message="minlength">Ievadiet vairāk nekā 5 simbolus.</div>
+                            <div ng-message="maxlength">Ievadiet mazāk nekā 255 simbolus.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Atrašanas vieta</label>
+                        <input ng-model="addCtrl.selectedLocation.name" id="mapsearch" placeholder="" name="mapsearch" google-addresses required />                        
+                        <div ng-messages="eventForm.mapsearch.$error">
+                            <div ng-message="required">Ievadiet atrašanas vietu.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                        <md-datepicker ng-model="addCtrl.selectedLocation.eventStart"
+                           md-placeholder="Sākumu datums"
+                           class=""
+                           name="startDate" 
+                           style="width: 50%"
+                           required>
+                        </md-datepicker>   
+                  
+                        <md-datepicker ng-model="addCtrl.selectedLocation.eventEnd"
+                           md-placeholder="Beigu datums"
+                           class=""
+                           style="width: 50%"
+                           name="endDate"
+                           required>
+                        </md-datepicker>         
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Kategorijas</label>
+                        <md-chips ng-model="addCtrl.event.categories" md-autocomplete-snap
+                                  md-transform-chip="addCtrl.transformChip($chip)"
+                                  md-require-match="true" required>
+                            <md-autocomplete md-selected-item="addCtrl.selectedCategory"
+                                             md-search-text="addCtrl.searchText"
+                                             md-items="category in addCtrl.categories | filter : addCtrl.searchText"
+                                             md-items-text="category.name"
+                                             md-min-length="1">
+                                <md-item-template>
+                                    <span class="item-title">{{category.name}}</span>
+                                    <!--<span class="item-metadata">
+                                        <span class="item-metastat">{category.description | limitTo: 20}}</span>
+                                    </span>-->
+                                </md-item-template>
+                                <md-not-found>
+                                    <span>Nav atradīta kategorija ar "{{vm.searchText}}" nosaukumu</span>
+                                </md-not-found>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <span>
+                                    <strong>{{$chip.name}}</strong>
+                                </span>
+                            </md-chip-template>
+                        </md-chips>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block" flex>
+                    <label>Informācija</label>
+                    <textarea ng-model="addCtrl.event.description" rows="5" name="description" required></textarea>
+                    <div ng-messages="eventForm.description.$error">
+                            <div ng-message="required">Ievadiet informāciju par pasākumu.</div>
+                        </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="addCtrl.cancel()">
+                Iziet
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised" 
+                       ng-disabled="eventForm.$invalid">
+                Saglabāt
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

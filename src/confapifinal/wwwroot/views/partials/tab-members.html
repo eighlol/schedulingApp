@@ -1,0 +1,12 @@
+﻿<div ng-include="'/views/partials/tab-members-form.html'"></div>
+<p ng-if="!vm.selectedEvent.members.length">Nav nevienu dalībnieku priekš pasākumam "{{vm.selectedEvent.name}}"</p>
+<md-content>
+    <md-card ng-repeat="member in vm.selectedEvent.members | orderBy: 'name'">
+        <md-card-content>
+            <h3>{{member.name}}</h3>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button ng-click="vm.removeMember(member)">Dzēst dalībnieku</md-button>
+        </md-card-actions>
+    </md-card>
+</md-content>

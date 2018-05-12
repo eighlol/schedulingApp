@@ -1,0 +1,15 @@
+﻿<div ng-include="'/views/partials/tab-locations-form.html'"></div>
+<p ng-if="!vm.selectedEvent.locations.length">Nav nevienas atrašanas vietas priekš pasākumam "{{vm.selectedEvent.name}}"</p>
+<md-content>
+    <md-card ng-repeat="location in vm.selectedEvent.locations | orderBy: 'eventStart'">
+        <md-card-content>
+            <h3>{{location.name}}</h3>
+            <div class="googleMapsdiv123" google-maps="location"></div>
+            <p><b>Sākuma datums:</b> {{location.eventStart | date:'dd.MM.yyyy'}}</p>
+            <p><b>Beigu datums: </b>{{location.eventEnd | date:'dd.MM.yyyy'}}</p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button ng-click="vm.removeLocation(location)">Dzēst lokāciju</md-button>
+        </md-card-actions>
+    </md-card>
+</md-content>
