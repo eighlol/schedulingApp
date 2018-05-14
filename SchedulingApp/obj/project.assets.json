@@ -12584,11 +12584,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Projects\\SchedulingApp\\SchedulingApp\\SchedulingApp.csproj",
+      "projectUniqueName": "C:\\Projects\\SchedulingApp2\\SchedulingApp\\SchedulingApp.csproj",
       "projectName": "SchedulingApp",
-      "projectPath": "C:\\Projects\\SchedulingApp\\SchedulingApp\\SchedulingApp.csproj",
+      "projectPath": "C:\\Projects\\SchedulingApp2\\SchedulingApp\\SchedulingApp.csproj",
       "packagesPath": "C:\\Users\\antons.jelcins\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\SchedulingApp\\SchedulingApp\\obj\\",
+      "outputPath": "C:\\Projects\\SchedulingApp2\\SchedulingApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
