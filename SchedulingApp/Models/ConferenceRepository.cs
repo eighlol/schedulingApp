@@ -18,6 +18,7 @@ namespace SchedulingApp.Models
         }
 
         #region Events
+
         public Event GetUserEventByIdDetailed(Guid id, string name)
         {
             try
@@ -34,7 +35,7 @@ namespace SchedulingApp.Models
             }
         }
 
-        public Event GetUserEventById(Guid id , string name)
+        public Event GetUserEventById(Guid id, string name)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace SchedulingApp.Models
         }
 
         public void DeleteEvent(Event eventToDelete)
-        {            
+        {
             try
             {
                 _context.Events.Remove(eventToDelete);
@@ -126,6 +127,7 @@ namespace SchedulingApp.Models
         {
             _context.Add(newEvent);
         }
+
         #endregion
 
         #region Categories
@@ -133,10 +135,11 @@ namespace SchedulingApp.Models
         public IEnumerable<Category> GetUserCategories(Guid eventId, string username)
         {
             var uEvent = GetUserEventById(eventId, username);
-            if(uEvent != null)
+            if (uEvent != null)
             {
-                return _context.EventCategories.Where(w=> w.EventId == uEvent.Id).Select(s => s.Category).ToList();
+                return _context.EventCategories.Where(w => w.EventId == uEvent.Id).Select(s => s.Category).ToList();
             }
+
             return new List<Category>();
         }
 
@@ -191,29 +194,34 @@ namespace SchedulingApp.Models
                 return new List<Category>();
             }
         }
+
         public void AddCategoryToEvent(Guid eventId, Category newCategory, string username)
         {
             var ev = GetUserEventById(eventId, username);
-            var eventCategory = new EventCategory { Category = newCategory , Event = ev};
+            var eventCategory = new EventCategory {Category = newCategory, Event = ev};
             _context.EventCategories.Add(eventCategory);
         }
+
         #endregion
 
         #region Locations
-        public void AddLocation(Guid eventId,Location location, string username)
+
+        public void AddLocation(Guid eventId, Location location, string username)
         {
             var ev = GetUserEventByIdDetailed(eventId, username);
             ev.Locations.Add(location);
             _context.Locations.Add(location);
         }
+
         #endregion
 
         #region Members
+
         public void AddMemberToEvent(Guid eventId, Member newMember, string username)
         {
-            var ev = GetUserEventById(eventId, username);
-            var eventMember = new EventMember { Member = newMember, Event = ev };
-            _context.EventMembers.Add(eventMember);
+            Event ev = GetUserEventById(eventId, username);
+            ev.EventMembers.Add(new EventMember() { MemberId = newMember.Id });
+            _context.Update(ev);
         }
 
         public void AddNewMember(Member member)
@@ -224,7 +232,7 @@ namespace SchedulingApp.Models
         public void DeleteMemberFromEvent(Guid eventId, Member member, string username)
         {
             var ev = GetUserEventById(eventId, username);
-            var eventMember = new EventMember { Member = member, Event = ev, EventId = ev.Id, MemberId = member.Id };
+            var eventMember = new EventMember {Member = member, Event = ev, EventId = ev.Id, MemberId = member.Id};
             _context.EventMembers.Remove(eventMember);
         }
 
@@ -241,6 +249,7 @@ namespace SchedulingApp.Models
             {
                 return _context.EventMembers.Where(w => w.EventId == uEvent.Id).Select(s => s.Member);
             }
+
             return new List<Member>();
         }
 
@@ -271,10 +280,10 @@ namespace SchedulingApp.Models
         }
 
         #endregion
+
         public bool SaveAll()
         {
-            return _context.SaveChanges() > 0; 
+            return _context.SaveChanges() > 0;
         }
-        
     }
 }
