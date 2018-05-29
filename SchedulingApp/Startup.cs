@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SchedulingApp.Models;
-using SchedulingApp.Services;
 using System.Net;
 using System.Threading.Tasks;
-using SchedulingApp.ViewModels;
+using SchedulingApp.ApiLogic.Repositories;
+using SchedulingApp.ApiLogic.Requests;
+using SchedulingApp.ApiLogic.Services;
+using SchedulingApp.Domain.Entities;
+using SchedulingApp.Infrastucture.Sql;
 
 namespace SchedulingApp
 {

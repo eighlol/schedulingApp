@@ -5,6 +5,8 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Folder Include="ApiLogic\Responses\" />
+    <Folder Include="Services\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
