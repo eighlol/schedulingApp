@@ -36,8 +36,8 @@ namespace SchedulingApp.ApiLogic.Services
 
             var json = await client.GetStringAsync(url);
 
-            var results = JObject.Parse(json);
-            var resources = results["resourceSets"][0]["resources"];
+            JObject results = JObject.Parse(json);
+            JToken resources = results["resourceSets"][0]["resources"];
             if (!resources.HasValues)
             {
                 _logger.LogError("No resources were found.");

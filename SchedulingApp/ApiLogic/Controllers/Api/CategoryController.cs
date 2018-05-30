@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SchedulingApp.ApiLogic.Repositories;
 using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 
 namespace SchedulingApp.ApiLogic.Controllers.Api
 {
@@ -17,11 +16,13 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
     public class CategoryController : Controller
     {
         private readonly IConferenceRepository _repository;
+        private readonly IMapper _mapper;
         private readonly ILogger<CategoryController> _logger;
 
-        public CategoryController(IConferenceRepository repository, ILogger<CategoryController> logger)
+        public CategoryController(IConferenceRepository repository, IMapper mapper, ILogger<CategoryController> logger)
         {
             _repository = repository;
+            _mapper = mapper;
             _logger = logger;
         }
 
@@ -36,7 +37,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
                     Response.StatusCode = (int)HttpStatusCode.NotFound;
                     return Json(null);
                 }
-                return Json(Mapper.Map<IEnumerable<CategoryViewModel>>(results.OrderBy(o => o.ParentId)));
+                return Json(_mapper.Map<IEnumerable<CategoryViewModel>>(results.OrderBy(o => o.ParentId)));
             }
             catch (Exception e)
             {
@@ -57,7 +58,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
                     Response.StatusCode = (int)HttpStatusCode.NotFound;
                     return Json(null);
                 }
-                return Json(Mapper.Map<IEnumerable<CategoryViewModel>>(results));
+                return Json(_mapper.Map<IEnumerable<CategoryViewModel>>(results));
             }
             catch (Exception e)
             {
@@ -84,7 +85,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
                     if (_repository.SaveAll())
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;
-                        return Json(Mapper.Map<CategoryViewModel>(newCategory));
+                        return Json(_mapper.Map<CategoryViewModel>(newCategory));
                     }                    
                 }
             }

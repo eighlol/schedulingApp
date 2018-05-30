@@ -40,6 +40,8 @@ namespace SchedulingApp
                 options.Filters.Add(typeof(ValidateModelStateFilterAttribute));
             });
 
+            services.AddAutoMapper();
+
             services.AddDbContext<SchedulingAppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -91,14 +93,6 @@ namespace SchedulingApp
 
             app.UseStaticFiles();
             app.UseAuthentication();
-
-            Mapper.Initialize(config =>
-            {
-                config.CreateMap<Event, GetAllEventResponse>().ReverseMap();
-                config.CreateMap<Category, CategoryViewModel>().ReverseMap();
-                config.CreateMap<Location, LocationViewModel>().ReverseMap();
-                config.CreateMap<Member, MemberViewModel>().ReverseMap();
-            });
 
             app.UseMvc(
                 routes =>

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
 using SchedulingApp.ApiLogic.Services;
+using SchedulingApp.ApiLogic.Services.Interfaces;
 using SchedulingApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,15 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
     {
         private readonly ILogger<LocationController> _logger;
         private readonly IConferenceRepository _repository;
-        private readonly CoordService _coordService;
+        private readonly ICoordService _coordService;
+        private readonly IMapper _mapper;
 
-        public LocationController(IConferenceRepository repository, ILogger<LocationController> logger, CoordService coordService)
+        public LocationController(IConferenceRepository repository, ICoordService coordService, IMapper mapper, ILogger<LocationController> logger)
         {
             _repository = repository;
             _logger = logger;
             _coordService = coordService;
+            _mapper = mapper;
         }
 
         [HttpGet("")]
@@ -37,7 +40,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
                 var results = _repository.GetUserEventByIdDetailed(eventId, User.Identity.Name);
                 if (results != null)
                 {
-                    return Json(Mapper.Map<IEnumerable<LocationViewModel>>(results.Locations.OrderBy(o => o.EventStart)));
+                    return Json(_mapper.Map<IEnumerable<LocationViewModel>>(results.Locations.OrderBy(o => o.EventStart)));
                 }
                 return Json(true);
             }
@@ -56,7 +59,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             {
                 if (ModelState.IsValid)
                {
-                    var newLocation = Mapper.Map<Location>(location);
+                    var newLocation = _mapper.Map<Location>(location);
 
                     var coordResult = await _coordService.Lookup(newLocation.Name);
                     if (!coordResult.Success)
@@ -72,7 +75,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
                     if (_repository.SaveAll())
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;
-                        return Json(Mapper.Map<LocationViewModel>(newLocation));
+                        return Json(_mapper.Map<LocationViewModel>(newLocation));
                     }
                 }
             }

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
 using SchedulingApp.ApiLogic.Responses;
+using SchedulingApp.ApiLogic.Responses.Dtos;
 using SchedulingApp.ApiLogic.Services.Interfaces;
 using SchedulingApp.Domain.Entities;
 using SchedulingApp.Infrastucture.Middleware.Exception;
@@ -17,16 +18,19 @@ namespace SchedulingApp.ApiLogic.Services
     {
         private readonly IEventRepository _eventRepository;
         private readonly ICoordService _coordService;
+        private readonly IMapper _mapper;
         private readonly ILogger<EventService> _logger;
 
         public EventService(
             IEventRepository eventRepository,
             ICoordService coordService,
+            IMapper mapper,
             ILogger<EventService> logger
         )
         {
             _eventRepository = eventRepository;
             _coordService = coordService;
+            _mapper = mapper;
             _logger = logger;
         }
 
@@ -36,7 +40,7 @@ namespace SchedulingApp.ApiLogic.Services
 
             IEnumerable<Event> userAllEventsDetailed = await _eventRepository.GetUserAllEventsDetailed(userName);
 
-            var events = Mapper.Map<List<EventDto>>(userAllEventsDetailed);
+            var events = _mapper.Map<List<EventDto>>(userAllEventsDetailed);
 
             return new GetAllEventResponse
             {
@@ -46,7 +50,7 @@ namespace SchedulingApp.ApiLogic.Services
 
         public async Task<EventDto> Create(CreateEventRequestDto request, string userName)
         {
-            var newEvent = Mapper.Map<Event>(request);
+            var newEvent = _mapper.Map<Event>(request);
 
             newEvent.UserName = userName;
 
@@ -59,7 +63,7 @@ namespace SchedulingApp.ApiLogic.Services
                 throw new UseCaseException(HttpStatusCode.BadRequest, "Failed to create a new event.");
             }
 
-            var result = Mapper.Map<EventDto>(newEvent);
+            var result = _mapper.Map<EventDto>(newEvent);
 
             return result;
         }

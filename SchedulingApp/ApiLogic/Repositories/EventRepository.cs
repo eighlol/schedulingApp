@@ -120,8 +120,10 @@ namespace SchedulingApp.ApiLogic.Repositories
             {
                 return await _context.Events
                     .Include(e => e.Locations)
-                    .Include(e => e.EventCategories.Select(ec => ec.Category))
-                    .Include(e => e.EventMembers.Select(em => em.Member))
+                    .Include(e => e.EventCategories)
+                        .ThenInclude(ec => ec.Category)
+                    .Include(e => e.EventMembers)
+                        .ThenInclude(em => em.Member)
                     .OrderBy(e => e.Name)
                     .Where(e => e.UserName == name)
                     .ToListAsync();

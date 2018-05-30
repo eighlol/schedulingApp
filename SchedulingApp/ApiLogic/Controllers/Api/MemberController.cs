@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SchedulingApp.ApiLogic.Repositories;
 using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
-using SchedulingApp.ApiLogic.Services;
 using SchedulingApp.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 
 namespace SchedulingApp.ApiLogic.Controllers.Api
 {
@@ -19,12 +17,13 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
     public class MemberController : Controller
     {
         private readonly IConferenceRepository _repository;
+        private readonly IMapper _mapper;
         private readonly ILogger<MemberController> _logger;
 
-        public MemberController(IConferenceRepository repository, ILogger<MemberController> logger,
-            CoordService coordService)
+        public MemberController(IConferenceRepository repository, IMapper mapper, ILogger<MemberController> logger)
         {
             _repository = repository;
+            _mapper = mapper;
             _logger = logger;
         }
 
@@ -40,7 +39,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
                     return Json(null);
                 }
 
-                return Json(Mapper.Map<IEnumerable<MemberViewModel>>(results.OrderBy(o => o.Name)));
+                return Json(_mapper.Map<IEnumerable<MemberViewModel>>(results.OrderBy(o => o.Name)));
             }
             catch (Exception e)
             {
@@ -58,14 +57,14 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             {
                 if (ModelState.IsValid)
                 {
-                    var newMember = Mapper.Map<Member>(member);
+                    var newMember = _mapper.Map<Member>(member);
 
                     _repository.AddMemberToEvent(eventId, newMember, User.Identity.Name);
 
                     if (_repository.SaveAll())
                     {
                         Response.StatusCode = (int) HttpStatusCode.Created;
-                        return Json(Mapper.Map<MemberViewModel>(_repository.GetMemberyById(newMember.Id)));
+                        return Json(_mapper.Map<MemberViewModel>(_repository.GetMemberyById(newMember.Id)));
                     }
                 }
             }
@@ -137,13 +136,13 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             {
                 if (ModelState.IsValid)
                 {
-                    var newMember = Mapper.Map<Member>(member);
+                    var newMember = _mapper.Map<Member>(member);
                     _repository.AddNewMember(newMember);
 
                     if (_repository.SaveAll())
                     {
                         Response.StatusCode = (int) HttpStatusCode.Created;
-                        return Json(Mapper.Map<MemberViewModel>(newMember));
+                        return Json(_mapper.Map<MemberViewModel>(newMember));
                     }
                 }
             }
@@ -170,7 +169,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
                     return Json(null);
                 }
 
-                return Json(Mapper.Map<IEnumerable<MemberViewModel>>(results));
+                return Json(_mapper.Map<IEnumerable<MemberViewModel>>(results));
             }
             catch (Exception e)
             {

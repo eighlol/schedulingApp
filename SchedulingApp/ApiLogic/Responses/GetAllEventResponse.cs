@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SchedulingApp.ApiLogic.Responses.Dtos;
 
 namespace SchedulingApp.ApiLogic.Responses
 {
