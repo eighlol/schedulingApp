@@ -1,25 +1,23 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SchedulingApp.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using SchedulingApp.Domain.Entities;
 
 namespace SchedulingApp.Infrastucture.Sql
 {
-    public class SchedulingAppDbContextSeedData
+    public static class SeedData
     {
-        private readonly SchedulingAppDbContext _context;
-        private readonly UserManager<ConferenceUser> _userManager;
+        public static async Task Initialize(IServiceProvider serviceProvider)
+        {
+            var context = serviceProvider.GetRequiredService<SchedulingAppDbContext>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ConferenceUser>>();
 
-        public SchedulingAppDbContextSeedData(SchedulingAppDbContext context, UserManager<ConferenceUser> userManager)
-        {
-            _context = context;
-            _userManager = userManager;
-        }
-        public async Task EnsureSeedDataAsync()
-        {
-            if (await _userManager.FindByEmailAsync("mrudens@gmail.com") == null)
+            //context.Database.EnsureCreated();
+
+            if (await userManager.FindByEmailAsync("mrudens@gmail.com") == null)
             {
                 var newUser = new ConferenceUser()
                 {
@@ -28,9 +26,9 @@ namespace SchedulingApp.Infrastucture.Sql
                     FirstEvent = DateTime.UtcNow
                 };
 
-                await _userManager.CreateAsync(newUser, "q1w2e3r4t5.");
+                await userManager.CreateAsync(newUser, "q1w2e3r4t5.");
             }
-            if (!_context.Events.Any())
+            if (!context.Events.Any())
             {
                 var defaultcategories = new List<Category>()
                 {
@@ -60,12 +58,11 @@ namespace SchedulingApp.Infrastucture.Sql
                     new Member() {Name = "Anastasija Elksnite", Gender= "female" }
                 };
 
-                _context.Members.AddRange(members);
-                _context.Events.Add(defaultEvent);
-                _context.Categories.AddRange(defaultcategories);
-                _context.SaveChanges();
+                context.Members.AddRange(members);
+                context.Events.Add(defaultEvent);
+                context.Categories.AddRange(defaultcategories);
+                context.SaveChanges();
             }
-
         }
     }
 }

@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net;
-using System.Threading.Tasks;
 using SchedulingApp.ApiLogic.Repositories;
 using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
@@ -16,9 +14,10 @@ using SchedulingApp.ApiLogic.Services;
 using SchedulingApp.ApiLogic.Services.Interfaces;
 using SchedulingApp.Domain.Entities;
 using SchedulingApp.Infrastucture.Filters;
-using SchedulingApp.Infrastucture.Middleware.Exception;
 using SchedulingApp.Infrastucture.Middlewares.Exception;
 using SchedulingApp.Infrastucture.Sql;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace SchedulingApp
 {
@@ -69,12 +68,14 @@ namespace SchedulingApp
             });
 
             services.AddSingleton<ICoordService, CoordService>();
-            services.AddTransient<SchedulingAppDbContextSeedData>();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
+            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SchedulingAppDbContextSeedData seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -107,8 +108,6 @@ namespace SchedulingApp
                         template: "{controller=App}/{action=Index}/{id?}");
                 }
             );
-
-            seeder.EnsureSeedDataAsync().Wait();
         }
     }
 }

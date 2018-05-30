@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using System;
 using SchedulingApp.Infrastucture.Sql;
+using System;
 
 namespace SchedulingApp.Migrations
 {
     [DbContext(typeof(SchedulingAppDbContext))]
-    [Migration("20180514191908_Initial")]
+    [Migration("20180530154847_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,7 +129,7 @@ namespace SchedulingApp.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.Category", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -148,7 +148,7 @@ namespace SchedulingApp.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.ConferenceUser", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.ConferenceUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -201,7 +201,7 @@ namespace SchedulingApp.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.Event", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.Event", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -220,7 +220,7 @@ namespace SchedulingApp.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.EventCategory", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.EventCategory", b =>
                 {
                     b.Property<Guid>("EventId");
 
@@ -241,7 +241,7 @@ namespace SchedulingApp.Migrations
                     b.ToTable("EventCategories");
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.EventMember", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.EventMember", b =>
                 {
                     b.Property<Guid>("EventId");
 
@@ -254,7 +254,7 @@ namespace SchedulingApp.Migrations
                     b.ToTable("EventMembers");
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.Location", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.Location", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -281,7 +281,7 @@ namespace SchedulingApp.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.Member", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.Member", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -304,23 +304,23 @@ namespace SchedulingApp.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SchedulingApp.Models.ConferenceUser")
+                    b.HasOne("SchedulingApp.Domain.Entities.ConferenceUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SchedulingApp.Models.ConferenceUser")
+                    b.HasOne("SchedulingApp.Domain.Entities.ConferenceUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -328,53 +328,54 @@ namespace SchedulingApp.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("SchedulingApp.Models.ConferenceUser")
+                    b.HasOne("SchedulingApp.Domain.Entities.ConferenceUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("SchedulingApp.Models.ConferenceUser")
+                    b.HasOne("SchedulingApp.Domain.Entities.ConferenceUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.EventCategory", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.EventCategory", b =>
                 {
-                    b.HasOne("SchedulingApp.Models.Category", "Category")
+                    b.HasOne("SchedulingApp.Domain.Entities.Category", "Category")
                         .WithMany("EventCategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("SchedulingApp.Models.Event", "Event")
+                    b.HasOne("SchedulingApp.Domain.Entities.Event", "Event")
                         .WithMany("EventCategories")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.EventMember", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.EventMember", b =>
                 {
-                    b.HasOne("SchedulingApp.Models.Event", "Event")
+                    b.HasOne("SchedulingApp.Domain.Entities.Event", "Event")
                         .WithMany("EventMembers")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("SchedulingApp.Models.Member", "Member")
+                    b.HasOne("SchedulingApp.Domain.Entities.Member", "Member")
                         .WithMany()
                         .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("SchedulingApp.Models.Location", b =>
+            modelBuilder.Entity("SchedulingApp.Domain.Entities.Location", b =>
                 {
-                    b.HasOne("SchedulingApp.Models.Event")
+                    b.HasOne("SchedulingApp.Domain.Entities.Event", "Event")
                         .WithMany("Locations")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

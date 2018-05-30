@@ -9,14 +9,14 @@ C:\Projects\SchedulingApp\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.pd
 C:\Projects\SchedulingApp\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.dll
 C:\Projects\SchedulingApp\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.pdb
 C:\Projects\SchedulingApp\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.csprojResolveAssemblyReference.cache
+C:\Projects\SchedulingApp2\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.dll
 C:\Projects\SchedulingApp2\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.deps.json
 C:\Projects\SchedulingApp2\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.runtimeconfig.json
 C:\Projects\SchedulingApp2\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.runtimeconfig.dev.json
-C:\Projects\SchedulingApp2\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.dll
-C:\Projects\SchedulingApp2\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.pdb
-C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.csprojResolveAssemblyReference.cache
 C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.csproj.CoreCompileInputs.cache
 C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.AssemblyInfoInputs.cache
 C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.AssemblyInfo.cs
 C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.dll
 C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.pdb
+C:\Projects\SchedulingApp2\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.pdb
+C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.csprojResolveAssemblyReference.cache

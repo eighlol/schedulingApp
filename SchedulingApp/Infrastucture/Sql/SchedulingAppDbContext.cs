@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using SchedulingApp.Domain.Entities;
 
 namespace SchedulingApp.Infrastucture.Sql
@@ -37,9 +39,6 @@ namespace SchedulingApp.Infrastucture.Sql
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
-        public SchedulingAppDbContext(DbContextOptions<SchedulingAppDbContext> options) : base(options)
-        {
-            Database.EnsureCreated();
-        }
+        public SchedulingAppDbContext(DbContextOptions<SchedulingAppDbContext> options) : base(options) { }
     }
 }
