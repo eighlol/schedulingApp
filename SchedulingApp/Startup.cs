@@ -9,9 +9,15 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Threading.Tasks;
 using SchedulingApp.ApiLogic.Repositories;
+using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
+using SchedulingApp.ApiLogic.Responses;
 using SchedulingApp.ApiLogic.Services;
+using SchedulingApp.ApiLogic.Services.Interfaces;
 using SchedulingApp.Domain.Entities;
+using SchedulingApp.Infrastucture.Filters;
+using SchedulingApp.Infrastucture.Middleware.Exception;
+using SchedulingApp.Infrastucture.Middlewares.Exception;
 using SchedulingApp.Infrastucture.Sql;
 
 namespace SchedulingApp
@@ -30,7 +36,10 @@ namespace SchedulingApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidateModelStateFilterAttribute));
+            });
 
             services.AddDbContext<SchedulingAppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -59,7 +68,7 @@ namespace SchedulingApp
                 };
             });
 
-            services.AddScoped<CoordService>();
+            services.AddSingleton<ICoordService, CoordService>();
             services.AddTransient<SchedulingAppDbContextSeedData>();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
         }
@@ -71,6 +80,12 @@ namespace SchedulingApp
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseExceptionMiddleware();
+            }
+            else
+            {
+                app.UseExceptionMiddleware();
+                app.UseExceptionHandler();
             }
 
             app.UseStaticFiles();
@@ -78,7 +93,7 @@ namespace SchedulingApp
 
             Mapper.Initialize(config =>
             {
-                config.CreateMap<Event, EventViewModel>().ReverseMap();
+                config.CreateMap<Event, GetAllEventResponse>().ReverseMap();
                 config.CreateMap<Category, CategoryViewModel>().ReverseMap();
                 config.CreateMap<Location, LocationViewModel>().ReverseMap();
                 config.CreateMap<Member, MemberViewModel>().ReverseMap();

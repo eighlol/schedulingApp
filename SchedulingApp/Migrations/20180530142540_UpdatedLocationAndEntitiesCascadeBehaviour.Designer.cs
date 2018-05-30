@@ -11,9 +11,10 @@ using System;
 namespace SchedulingApp.Migrations
 {
     [DbContext(typeof(SchedulingAppDbContext))]
-    partial class SchedulingAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180530142540_UpdatedLocationAndEntitiesCascadeBehaviour")]
+    partial class UpdatedLocationAndEntitiesCascadeBehaviour
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

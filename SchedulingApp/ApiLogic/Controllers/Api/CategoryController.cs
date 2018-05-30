@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SchedulingApp.ApiLogic.Repositories;
+using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
 
 namespace SchedulingApp.ApiLogic.Controllers.Api
@@ -99,3 +100,4 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         }
     }
 }
+

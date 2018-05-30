@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.Domain.Entities;
 using SchedulingApp.Infrastucture.Sql;
 

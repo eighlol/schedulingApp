@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using SchedulingApp.ApiLogic.Services.Interfaces;
 
 namespace SchedulingApp.ApiLogic.Services
 {
-    public class CoordService
+    public class CoordService : ICoordService
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<CoordService> _logger;

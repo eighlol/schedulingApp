@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SchedulingApp.ApiLogic.Repositories;
+using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
 using SchedulingApp.ApiLogic.Services;
 using SchedulingApp.Domain.Entities;
@@ -18,15 +19,13 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
     public class MemberController : Controller
     {
         private readonly IConferenceRepository _repository;
-        private readonly ILogger<EventController> _logger;
-        private readonly CoordService _coordService;
+        private readonly ILogger<MemberController> _logger;
 
-        public MemberController(IConferenceRepository repository, ILogger<EventController> logger,
+        public MemberController(IConferenceRepository repository, ILogger<MemberController> logger,
             CoordService coordService)
         {
             _repository = repository;
             _logger = logger;
-            _coordService = coordService;
         }
 
         [HttpGet("events/{eventId}/members")]

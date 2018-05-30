@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SchedulingApp.Domain.Entities;
 
-namespace SchedulingApp.ApiLogic.Repositories
+namespace SchedulingApp.ApiLogic.Repositories.Interfaces
 {
     public interface ICategoryRepository
     {

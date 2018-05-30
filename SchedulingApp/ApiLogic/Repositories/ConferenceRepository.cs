@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.Domain.Entities;
+using SchedulingApp.Infrastucture.Middleware.Exception;
 using SchedulingApp.Infrastucture.Sql;
 
 namespace SchedulingApp.ApiLogic.Repositories
@@ -113,15 +116,17 @@ namespace SchedulingApp.ApiLogic.Repositories
             try
             {
                 return _context.Events
-                    .Include(i => i.Locations)
-                    .OrderBy(o => o.Name)
-                    .Where(w => w.UserName == name)
+                    .Include(e => e.Locations)
+                    .Include(e => e.EventCategories.Select(ec => ec.Category))
+                    .Include(e => e.EventMembers.Select(em => em.Member))
+                    .OrderBy(e => e.Name)
+                    .Where(e => e.UserName == name)
                     .ToList();
             }
             catch (Exception e)
             {
-                _logger.LogError("Could not get events with categories and locations from database", e);
-                return new List<Event>();
+                _logger.LogError($"Failed to get events with locations, categories and members. Inner exception: {e.InnerException}");
+                throw new UseCaseException(HttpStatusCode.InternalServerError, "Failed to access data");
             }
         }
 

@@ -1,16 +1,16 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using SchedulingApp.ApiLogic.Repositories.Interfaces;
+using SchedulingApp.ApiLogic.Requests;
+using SchedulingApp.ApiLogic.Services;
+using SchedulingApp.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SchedulingApp.ApiLogic.Repositories;
-using SchedulingApp.ApiLogic.Requests;
-using SchedulingApp.ApiLogic.Services;
-using SchedulingApp.Domain.Entities;
 
 namespace SchedulingApp.ApiLogic.Controllers.Api
 {
