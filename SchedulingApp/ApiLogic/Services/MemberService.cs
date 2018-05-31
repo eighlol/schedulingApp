@@ -128,7 +128,7 @@ namespace SchedulingApp.ApiLogic.Services
 
             EnsureEventExists(@event);
 
-            Task<IEnumerable<Member>> eventMembers = _memberRepository.GetEventMembers(eventId);
+            IEnumerable<Member> eventMembers = await _memberRepository.GetEventMembers(eventId);
 
             var memberDto = _mapper.Map<List<MemberDto>>(eventMembers);
 
