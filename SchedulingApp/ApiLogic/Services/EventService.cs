@@ -50,6 +50,8 @@ namespace SchedulingApp.ApiLogic.Services
 
         public async Task<EventDto> Create(CreateEventRequest request, string userName)
         {
+            _logger.LogInformation($"Creating event for user {userName}, request: {request}");
+
             var newEvent = _mapper.Map<Event>(request);
 
             newEvent.UserName = userName;
@@ -58,7 +60,7 @@ namespace SchedulingApp.ApiLogic.Services
 
             _eventRepository.AddEvent(newEvent);
 
-            if (await _eventRepository.SaveAll())
+            if (!await _eventRepository.SaveAll())
             {
                 throw new UseCaseException(HttpStatusCode.BadRequest, "Failed to create a new event.");
             }
@@ -86,7 +88,9 @@ namespace SchedulingApp.ApiLogic.Services
 
         public async Task Delete(Guid eventId)
         {
-            var eventToDelte = _eventRepository.GetEventDetailedById(eventId);
+            _logger.LogInformation($"Deleting event with id {eventId}");
+
+            var eventToDelte = _eventRepository.GetEventDetailed(eventId);
 
             EnsureEventExists(eventId, eventToDelte);
 
