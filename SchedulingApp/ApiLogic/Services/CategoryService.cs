@@ -8,8 +8,10 @@ using SchedulingApp.Domain.Entities;
 using SchedulingApp.Infrastucture.Middleware.Exception;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Net;
 using System.Threading.Tasks;
+using SchedulingApp.Infrastucture.Utils;
 
 namespace SchedulingApp.ApiLogic.Services
 {
@@ -61,9 +63,21 @@ namespace SchedulingApp.ApiLogic.Services
 
         private void EnsureCategoryAddedInDatabase()
         {
-            if (!_categoryRepository.SaveAll())
+            try
             {
-                throw new UseCaseException(HttpStatusCode.BadRequest, "Failed to add category.");
+                if (!_categoryRepository.SaveAll())
+                {
+                    throw new UseCaseException(HttpStatusCode.BadRequest, "Failed to add category.");
+                }
+            }
+            catch (SqlException exception)
+            {
+                if (exception.IsAnyOfUniqueKeyViolationsError())
+                {
+                    throw new UseCaseException(HttpStatusCode.Conflict, "Category already exists.");
+                }
+
+                throw;
             }
         }
 

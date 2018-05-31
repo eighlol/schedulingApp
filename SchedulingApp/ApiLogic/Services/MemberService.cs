@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -12,6 +13,7 @@ using SchedulingApp.ApiLogic.Responses.Dtos;
 using SchedulingApp.ApiLogic.Services.Interfaces;
 using SchedulingApp.Domain.Entities;
 using SchedulingApp.Infrastucture.Middleware.Exception;
+using SchedulingApp.Infrastucture.Utils;
 
 namespace SchedulingApp.ApiLogic.Services
 {
@@ -82,9 +84,21 @@ namespace SchedulingApp.ApiLogic.Services
 
         private async Task EnsureMemberAddedInDataBase()
         {
-            if (!await _memberRepository.SaveAll())
+            try
             {
-                throw new UseCaseException(HttpStatusCode.BadRequest, "Failed to add member to the event.");
+                if (!await _memberRepository.SaveAll())
+                {
+                    throw new UseCaseException(HttpStatusCode.BadRequest, "Failed to add member to the event.");
+                }
+            }
+            catch (SqlException exception)
+            {
+                if (exception.IsAnyOfUniqueKeyViolationsError())
+                {
+                    throw new UseCaseException(HttpStatusCode.Conflict, "Member already exists.");
+                }
+
+                throw;
             }
         }
 
