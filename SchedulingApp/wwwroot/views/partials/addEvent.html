@@ -1,11 +1,20 @@
-﻿<md-dialog flex="66">
-    <form name="eventForm" ng-submit="addCtrl.saveEvent()">
+﻿<md-dialog flex="66" ng-controller="addEventDialogController as vm" ng-cloak>
+    <form name="eventForm" ng-submit="vm.saveEvent()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add new event</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
         <md-dialog-content>
             <div layout="column" layout-padding>
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Nosaukums</label>
-                        <input ng-model="addCtrl.event.name" name="name" ng-minlength="5" ng-maxlength="255" required/>
+                        <input ng-model="vm.event.name" name="name" ng-minlength="5" ng-maxlength="255" ng-change="vm.onChange(1)" required/>
                         <div ng-messages="eventForm.name.$error">
                             <div ng-message="required">Ievadiet nosaukumu.</div>
                             <div ng-message="minlength">Ievadiet vairāk nekā 5 simbolus.</div>
@@ -14,25 +23,25 @@
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Atrašanas vieta</label>
-                        <input ng-model="addCtrl.selectedLocation.name" id="mapsearch" placeholder="" name="mapsearch" google-addresses required />                        
+                        <input ng-model="vm.selectedLocation.name" id="mapsearch" placeholder="" name="mapsearch" google-addresses required ng-change="vm.onChange(1)"/>                        
                         <div ng-messages="eventForm.mapsearch.$error">
                             <div ng-message="required">Ievadiet atrašanas vietu.</div>
                         </div>
                     </md-input-container>
                 </div>
                 <div layout-gt-sm="row">
-                        <md-datepicker ng-model="addCtrl.selectedLocation.eventStart"
+                        <md-datepicker ng-model="vm.selectedLocation.eventStart"
                            md-placeholder="Sākumu datums"
                            class=""
                            name="startDate" 
-                           style="width: 50%"
+                           style="width: calc(50% - 10px)"
                            required>
                         </md-datepicker>   
                   
-                        <md-datepicker ng-model="addCtrl.selectedLocation.eventEnd"
+                        <md-datepicker ng-model="vm.selectedLocation.eventEnd"
                            md-placeholder="Beigu datums"
                            class=""
-                           style="width: 50%"
+                           style="width: calc(50% - 10px)"
                            name="endDate"
                            required>
                         </md-datepicker>         
@@ -40,12 +49,12 @@
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Kategorijas</label>
-                        <md-chips ng-model="addCtrl.event.categories" md-autocomplete-snap
-                                  md-transform-chip="addCtrl.transformChip($chip)"
+                        <md-chips ng-model="vm.event.categories" md-autocomplete-snap
+                                  md-transform-chip="vm.transformChip($chip)"
                                   md-require-match="true" required>
-                            <md-autocomplete md-selected-item="addCtrl.selectedCategory"
-                                             md-search-text="addCtrl.searchText"
-                                             md-items="category in addCtrl.categories | filter : addCtrl.searchText"
+                            <md-autocomplete md-selected-item="vm.selectedCategory"
+                                             md-search-text="vm.searchText"
+                                             md-items="category in vm.categories | filter : vm.searchText"
                                              md-items-text="category.name"
                                              md-min-length="1">
                                 <md-item-template>
@@ -68,7 +77,7 @@
                 </div>
                 <md-input-container class="md-block" flex>
                     <label>Informācija</label>
-                    <textarea ng-model="addCtrl.event.description" rows="5" name="description" required></textarea>
+                    <textarea ng-model="vm.event.description" rows="5" name="description" required></textarea>
                     <div ng-messages="eventForm.description.$error">
                             <div ng-message="required">Ievadiet informāciju par pasākumu.</div>
                         </div>
@@ -76,7 +85,7 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
-            <md-button ng-click="addCtrl.cancel()">
+            <md-button ng-click="vm.cancel()">
                 Iziet
             </md-button>
             <md-button type="submit" class="md-primary md-raised" 

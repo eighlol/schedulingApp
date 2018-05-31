@@ -1,25 +1,27 @@
 ﻿<md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button ng-click="vm.toggleSideNav()" hide-gt-sm class="md-icon-button">
+        <md-button ng-click="vm.toggleSideNav()" hide-gt-sm class="md-icon-button" aria-label="Sidebar">
            <ng-md-icon icon="menu"></ng-md-icon> 
         </md-button>
-        <h1>
-            Pasākumu apraksts
-        </h1>
+        <h1>{{vm.pageHeader}}</h1>
         <md-fab-speed-dial md-direction="down" class="md-fling md-fab-top-right">
             <md-fab-trigger>
-                <md-button class="md-fab">
+                <md-button class="md-fab" aria-label="Menu">
                     <ng-md-icon icon="menu"></ng-md-icon>
                 </md-button>
             </md-fab-trigger>
             <md-fab-actions>
-                <md-button class="md-fab md-raised md-mini">
-                    <ng-md-icon icon="face"></ng-md-icon>
-                    <md-tooltip md-direction="left">Contact</md-tooltip>
+                <md-button class="md-fab md-raised md-mini" aria-label="Home">
+                    <a href="/">
+                        <ng-md-icon icon="home"></ng-md-icon>
+                        <md-tooltip md-direction="left">Home</md-tooltip>
+                    </a>
                 </md-button>
-                <md-button class="md-fab md-raised md-mini" ng-click="vm.removeAllMembers($event)">
-                    <ng-md-icon icon="clear_all"></ng-md-icon>
-                    <md-tooltip md-direction="left">Delete all members</md-tooltip>
+                <md-button class="md-fab md-raised md-mini" aria-label="Members">
+                    <a href="/members">
+                        <ng-md-icon icon="group"></ng-md-icon>
+                        <md-tooltip md-direction="left">Members</md-tooltip>
+                    </a>
                 </md-button>
             </md-fab-actions>
         </md-fab-speed-dial>

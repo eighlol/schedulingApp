@@ -35,10 +35,10 @@ namespace SchedulingApp.ApiLogic.Repositories
             _context.EventMembers.Remove(eventMember);
         }
 
-        public void DeleteAllMembersFromEvent(Event @event)
+        public async Task DeleteAllMembersFromEvent(Guid eventId)
         {
-            @event.EventMembers = new List<EventMember>();
-            _context.Update(@event);
+            List<EventMember> eventMembers = await _context.EventMembers.Where(em => em.EventId == eventId).ToListAsync();
+            _context.EventMembers.RemoveRange(eventMembers);
         }
 
         public async Task AddNewMember(Member member)

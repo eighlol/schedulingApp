@@ -11,7 +11,7 @@ namespace SchedulingApp.ApiLogic.Repositories.Interfaces
 
         Task DeleteMemberFromEvent(Guid eventId, Guid memberId);
 
-        void DeleteAllMembersFromEvent(Event @event);
+        Task DeleteAllMembersFromEvent(Guid eventId);
 
         Task AddNewMember(Member member);
 

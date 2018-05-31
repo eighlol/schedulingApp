@@ -2,7 +2,7 @@
 //    'use strict';
 
 //    angular
-//        .module('conferenceApp')
+//        .module('schedulingApp')
 //        .factory('AuthenticationService', AuthenticationService);
 
 //    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];

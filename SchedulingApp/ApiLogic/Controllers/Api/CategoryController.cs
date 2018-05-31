@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SchedulingApp.ApiLogic.Requests.Dtos;
+using SchedulingApp.ApiLogic.Requests;
 using SchedulingApp.ApiLogic.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
-using SchedulingApp.ApiLogic.Requests;
 
 namespace SchedulingApp.ApiLogic.Controllers.Api
 {

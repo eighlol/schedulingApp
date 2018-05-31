@@ -1,0 +1,40 @@
+<md-dialog aria-label="Add new member" ng-controller="addMemberDialogController as vm" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add new member</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-content style="min-width: 350px;">
+                    <md-input-container class="md-icon-float md-block">
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Name Surname</label>
+                        <input ng-model="vm.member.name" type="text">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Gender</label>
+                        <md-select ng-model="vm.member.gender">
+                            <md-option ng-repeat="gender in vm.genders" value="{{gender.value}}">
+                            {{gender.text}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </md-content>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="vm.cancel()">
+                Cancel
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="vm.submit()" style="margin-right:20px;">
+                Create
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

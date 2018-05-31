@@ -1,0 +1,20 @@
+<div layout="row" flex  style="min-height: 100vh;" ng-controller="mainController as vm">
+    <div ng-include="'../views/sidenav.html'" layout="vertical"></div>
+    <div layout="column" flex>
+        <div ng-include="'../views/toolbar-header.html'"></div>
+        <md-content flex id="content">
+            <div ng-include="'../views/partials/main-content-header.html'"></div>
+            <md-tabs md-selected="vm.tabId" md-dynamic-height="" md-stretch-tabs="always">
+                <md-tab label="Informācija">
+                    <div ng-include="'../views/partials/tab-info.html'"></div>
+                </md-tab>
+                    <md-tab label="Dalībnieki">
+                    <div ng-include="'../views/partials/tab-members.html'"></div>
+                </md-tab>
+                <md-tab label="Lokācijas">
+                    <div ng-include="'../views/partials/tab-locations.html'"></div>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</div>

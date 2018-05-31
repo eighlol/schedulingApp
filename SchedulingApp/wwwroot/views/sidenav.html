@@ -15,7 +15,6 @@
                 <span>Nav atrasts pasākums ar "{{vm.searchText}}" nosaukumu</span>
             </md-not-found>
         </md-autocomplete>
-
     </div>
     <md-content class="scrollable-nav-content">
         <md-list>
@@ -24,8 +23,7 @@
             </md-list-item>
         </md-list>
     </md-content>
-    <md-button class="md-fab md-fab-bottom-right" ng-click="vm.addEvent($event)">
+    <md-button class="md-fab md-fab-bottom-right" ng-click="vm.addEvent($event)" aria-label="Add event">
         <ng-md-icon icon="add"></ng-md-icon>
     </md-button>
-
 </md-sidenav>

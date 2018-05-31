@@ -62,3 +62,7 @@ md-sidenav md-list {
 form[name=eventForm] .md-datepicker-input-container{
     width: 91%;
 }
+
+.tab-event-info {
+    font-size: 16pt;
+}

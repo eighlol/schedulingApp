@@ -19,4 +19,5 @@ C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.A
 C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.dll
 C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.pdb
 C:\Projects\SchedulingApp2\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.pdb
+C:\Projects\SchedulingApp2\SchedulingApp\bin\Debug\netcoreapp2.0\SchedulingApp.xml
 C:\Projects\SchedulingApp2\SchedulingApp\obj\Debug\netcoreapp2.0\SchedulingApp.csprojResolveAssemblyReference.cache

@@ -1,1 +1,11 @@
-﻿<p>{{vm.selectedEvent.description}}</p>
+﻿<div class="tab-event-info">
+    <p>{{vm.selectedEvent.description}}</p>
+    <md-content>
+        <h4>Kategorijas:</h4>
+        <ul class="category-list">
+            <li ng-repeat="category in vm.selectedEvent.categories | orderBy: 'name'">
+                {{category.name.trim()}}
+            </li>
+        </ul>
+    </md-content>
+</div>

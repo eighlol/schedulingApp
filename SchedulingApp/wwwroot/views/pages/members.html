@@ -1,0 +1,24 @@
+<div ng-controller="membersController as vm">
+    <div ng-include="'../views/toolbar-header.html'"></div>
+    <md-list>
+        <md-subheader class="md-no-sticky">
+            Registered members list
+            <div style="position: absolute; right: 0; top: -12px;">
+                <md-button class="md-icon-button" aria-label="Add member" ng-click="vm.addMember($event)">
+                    <ng-md-icon icon="person_add" aria-label="Add member"></ng-md-icon>
+                </md-button>
+                <!-- <md-button class="md-icon-button md-accent" aria-label="Clear all" ng-click="vm.clearAllMembers($event)">
+                    <ng-md-icon icon="clear_all" aria-label="Clear all"></ng-md-icon>
+                </md-button> -->
+            </div>
+        </md-subheader>        
+        <md-list-item class="md-2-line" ng-repeat="member in vm.members" ng-click="alert(member.name)">
+            <img alt="{{ member.gender }}" ng-src="{{ member.gender === 'male' ? 'icons/male.png' : 'icons/female.png'}}" class="md-avatar" />
+            <div class="md-list-item-text">
+                <h3>{{ member.name }}</h3>
+                <p>{{ member.gender }}</p>
+            </div>
+            <ng-md-icon icon="delete" aria-label="Delete" class="md-secondary md-hue-3" style="margin: 0" ng-click="vm.deleteMember($event, member)"></ng-md-icon>
+        </md-list-item>
+    </md-list>
+</div>

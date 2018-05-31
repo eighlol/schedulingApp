@@ -19,7 +19,6 @@
                 </md-item-template>
                 <md-not-found>
                     Nav atrasts dalībnieks "{{vm.searchMemberText}}"
-                    <a ng-click="vm.addNewMember(vm.searchMemberText)">Izveidot jaunu dalībnieku!</a>
                 </md-not-found>
                 <div ng-messages="memberForm.memberName.$error" ng-if="memberForm.memberName.$touched">
                     <div ng-message="required">Dalībnieku <b>jāievada</b>.</div>
@@ -32,6 +31,11 @@
                            type="submit"
                            ng-disabled="memberForm.$invalid">
                     Pievienot
+                </md-button>
+                <md-button class="md-primary md-raised"
+                           ng-if="vm.selectedEvent.members.length"
+                           ng-click="vm.removeAllMembers($event)">
+                    Dzēst visus dalibniekus
                 </md-button>
             </div>
         </div>

@@ -2,7 +2,7 @@
 //    'use strict';
 
 //    angular
-//        .module('conferenceApp')
+//        .module('schedulingApp')
 //        .factory('UserService', UserService);
 
 //    UserService.$inject = ['$http'];

@@ -159,7 +159,7 @@ namespace SchedulingApp.ApiLogic.Services
 
             EnsureEventExists(@event);
 
-            _memberRepository.DeleteAllMembersFromEvent(@event);
+            await _memberRepository.DeleteAllMembersFromEvent(eventId);
 
             await EnsureMembersAreDeletedInDataBase();
         }
