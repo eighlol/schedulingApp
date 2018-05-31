@@ -27,7 +27,8 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         [HttpPost("")]
         public async Task<IActionResult> CreateNew([FromBody]CreateEventRequest request)
         {
-            return Ok(await _eventService.Create(request, User.Identity.Name));
+            await _eventService.Create(request, User.Identity.Name);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

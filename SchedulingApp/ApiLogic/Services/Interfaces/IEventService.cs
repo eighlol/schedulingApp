@@ -10,7 +10,7 @@ namespace SchedulingApp.ApiLogic.Services.Interfaces
     {
         Task<GetAllEventResponse> GetAll(string userName);
 
-        Task<EventDto> Create(CreateEventRequest request, string userName);
+        Task Create(CreateEventRequest request, string userName);
 
         Task Delete(Guid eventId);
     }

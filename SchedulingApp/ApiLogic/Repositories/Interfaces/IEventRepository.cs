@@ -23,6 +23,6 @@ namespace SchedulingApp.ApiLogic.Repositories.Interfaces
 
         Task<IEnumerable<Event>> GetUserAllEventsDetailed(string name);
 
-        void DeleteEvent(Event eventToDelete);
+        Task DeleteEvent(Event eventToDelete);
     }
 }

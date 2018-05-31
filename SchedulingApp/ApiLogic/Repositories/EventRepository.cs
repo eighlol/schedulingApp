@@ -74,10 +74,7 @@ namespace SchedulingApp.ApiLogic.Repositories
         {
             try
             {
-                Event @event = await _context.Events
-                    .Include(i => i.EventCategories)
-                    .Include(i => i.Locations)
-                    .Include(i => i.EventMembers).FirstOrDefaultAsync(w => w.Id == id);
+                Event @event = await _context.Events.FirstOrDefaultAsync(w => w.Id == id);
 
                 return @event;
             }
@@ -88,10 +85,19 @@ namespace SchedulingApp.ApiLogic.Repositories
             }
         }
 
-        public void DeleteEvent(Event eventToDelete)
+        public async Task DeleteEvent(Event eventToDelete)
         {
             try
             {
+                List<EventMember> eventMembers = await _context.EventMembers.Where(em => em.EventId == eventToDelete.Id).ToListAsync();
+                _context.EventMembers.RemoveRange(eventMembers);
+
+                List<EventCategory> eventCategories = await _context.EventCategories.Where(ec => ec.EventId == eventToDelete.Id).ToListAsync();
+                _context.EventCategories.RemoveRange(eventCategories);
+
+                List<Location> locations = await _context.Locations.Where(l => l.Event.Id == eventToDelete.Id).ToListAsync();
+                _context.Locations.RemoveRange(locations);
+
                 _context.Events.Remove(eventToDelete);
             }
             catch (Exception e)
@@ -155,7 +161,7 @@ namespace SchedulingApp.ApiLogic.Repositories
 
         public void AddEvent(Event newEvent)
         {
-            _context.Events.Add(newEvent);
+            _context.Add(newEvent);
         }
 
         public async Task<bool> SaveAll()

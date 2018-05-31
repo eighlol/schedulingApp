@@ -48,7 +48,7 @@ namespace SchedulingApp.ApiLogic.Services
             };
         }
 
-        public async Task<EventDto> Create(CreateEventRequest request, string userName)
+        public async Task Create(CreateEventRequest request, string userName)
         {
             _logger.LogInformation($"Creating event for user {userName}, request: {request}");
 
@@ -61,10 +61,6 @@ namespace SchedulingApp.ApiLogic.Services
             _eventRepository.AddEvent(newEvent);
 
             await EnsureEventCreatedInDatabase();
-
-            var result = _mapper.Map<EventDto>(newEvent);
-
-            return result;
         }
 
         private async Task EnsureEventCreatedInDatabase()
@@ -95,11 +91,11 @@ namespace SchedulingApp.ApiLogic.Services
         {
             _logger.LogInformation($"Deleting event with id {eventId}");
 
-            var eventToDelte = _eventRepository.GetEventDetailed(eventId);
+            var eventToDelte = await _eventRepository.GetEvent(eventId);
 
             EnsureEventExists(eventId, eventToDelte);
 
-            _eventRepository.DeleteEvent(eventToDelte);
+            await _eventRepository.DeleteEvent(eventToDelte);
 
             await EnsureEventDeletedInDatabase();
         }

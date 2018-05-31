@@ -4,6 +4,6 @@ namespace SchedulingApp.ApiLogic.Responses
 {
     public class GetAllCategoriesResponse
     {
-        public List<Responses.Dtos.CategoryDto> Categories { get; set; }
+        public List<Dtos.CategoryDto> Categories { get; set; }
     }
 }

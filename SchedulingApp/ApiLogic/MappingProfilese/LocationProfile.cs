@@ -9,7 +9,9 @@ namespace SchedulingApp.ApiLogic.MappingProfilese
         public LocationProfile()
         {
             CreateMap<Location, LocationDto>();
+
+            CreateMap<Requests.Dtos.LocationDto, Location>();
         }
     }
 }
-//TODO: search dlja kategorij ebana
+//TODO: search dlja kategorij 

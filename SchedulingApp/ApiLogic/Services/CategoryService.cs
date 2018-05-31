@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
-using SchedulingApp.ApiLogic.Requests.Dtos;
 using SchedulingApp.ApiLogic.Responses;
 using SchedulingApp.ApiLogic.Services.Interfaces;
 using SchedulingApp.Domain.Entities;
 using SchedulingApp.Infrastucture.Middleware.Exception;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace SchedulingApp.ApiLogic.Services
 {
@@ -88,7 +87,7 @@ namespace SchedulingApp.ApiLogic.Services
 
             EnsureEventExists(@event);
 
-            var categories = _categoryRepository.GetEventCategories(eventId);
+            var categories = await _categoryRepository.GetEventCategories(eventId);
 
             var categoriesDto = _mapper.Map<List<Responses.Dtos.CategoryDto>>(categories);
 
