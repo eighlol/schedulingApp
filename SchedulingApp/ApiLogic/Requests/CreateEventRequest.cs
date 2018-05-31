@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SchedulingApp.ApiLogic.Requests
 {
-    public class CreateEventRequestDto
+    public class CreateEventRequest
     {
         [Required]
         [StringLength(255, MinimumLength = 5)]

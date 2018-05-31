@@ -19,21 +19,21 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         }
 
         [HttpGet("")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_eventService.GetAll(User.Identity.Name));
+            return Ok(await _eventService.GetAll(User.Identity.Name));
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> CreateNew([FromBody]CreateEventRequestDto request)
+        public async Task<IActionResult> CreateNew([FromBody]CreateEventRequest request)
         {
             return Ok(await _eventService.Create(request, User.Identity.Name));
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            _eventService.Delete(id);
+            await _eventService.Delete(id);
             return NoContent();
         }
     }

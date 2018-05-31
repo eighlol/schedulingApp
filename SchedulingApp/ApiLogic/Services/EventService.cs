@@ -48,7 +48,7 @@ namespace SchedulingApp.ApiLogic.Services
             };
         }
 
-        public async Task<EventDto> Create(CreateEventRequestDto request, string userName)
+        public async Task<EventDto> Create(CreateEventRequest request, string userName)
         {
             var newEvent = _mapper.Map<Event>(request);
 

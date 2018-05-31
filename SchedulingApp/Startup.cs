@@ -18,6 +18,7 @@ using SchedulingApp.Infrastucture.Middlewares.Exception;
 using SchedulingApp.Infrastucture.Sql;
 using System.Net;
 using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SchedulingApp
 {
@@ -41,6 +42,21 @@ namespace SchedulingApp
             });
 
             services.AddAutoMapper();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Description = "Scheduling App API",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Email = "mrudens@gmail.com",
+                        Name = "Anthony"
+                    }
+                });
+            });
 
             services.AddDbContext<SchedulingAppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -102,6 +118,12 @@ namespace SchedulingApp
                         template: "{controller=App}/{action=Index}/{id?}");
                 }
             );
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Scheduling App API V1");
+            });
         }
     }
 }

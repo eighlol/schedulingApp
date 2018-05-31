@@ -16,7 +16,7 @@ namespace SchedulingApp.ApiLogic.MappingProfilese
                 .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.EventCategories.Select(ec => ec.Category)))
                 .ForMember(dest => dest.Members, opt => opt.MapFrom(src => src.EventMembers.Select(em => em.Member)));
 
-            CreateMap<CreateEventRequestDto, Event>();
+            CreateMap<CreateEventRequest, Event>();
         }
     }
 }
