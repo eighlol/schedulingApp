@@ -15,7 +15,7 @@ namespace SchedulingApp.Infrastucture.Sql
             var context = serviceProvider.GetRequiredService<SchedulingAppDbContext>();
             var userManager = serviceProvider.GetRequiredService<UserManager<ConferenceUser>>();
 
-            //context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
 
             if (await userManager.FindByEmailAsync("mrudens@gmail.com") == null)
             {

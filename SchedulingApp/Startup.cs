@@ -8,17 +8,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SchedulingApp.ApiLogic.Repositories;
 using SchedulingApp.ApiLogic.Repositories.Interfaces;
-using SchedulingApp.ApiLogic.Requests;
-using SchedulingApp.ApiLogic.Responses;
 using SchedulingApp.ApiLogic.Services;
 using SchedulingApp.ApiLogic.Services.Interfaces;
 using SchedulingApp.Domain.Entities;
 using SchedulingApp.Infrastucture.Filters;
 using SchedulingApp.Infrastucture.Middlewares.Exception;
 using SchedulingApp.Infrastucture.Sql;
+using Swashbuckle.AspNetCore.Swagger;
 using System.Net;
 using System.Threading.Tasks;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace SchedulingApp
 {
@@ -88,7 +86,9 @@ namespace SchedulingApp
             services.AddSingleton<ICoordService, CoordService>();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IEventService, EventService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
         }
 
