@@ -28,7 +28,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         }
 
 
-        [HttpPost("events/{eventId}/members")]
+        [HttpPut("events/{eventId}/members")]
         public async Task<IActionResult> Add(Guid eventId, [FromBody] AddMemberToEventRequest request)
         {
             await _memberService.AddToEvent(eventId, request);
