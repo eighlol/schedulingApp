@@ -61,8 +61,6 @@ function addEventDialogController($http, $mdDialog, categoriesService, $mdToast)
         .finally(function () {
 
         });
-
-        
     };
 
     vm.openToast = function (message) {
@@ -73,6 +71,4 @@ function addEventDialogController($http, $mdDialog, categoriesService, $mdToast)
                 .hideDelay(2000)
             );
     };
-
-   
 };

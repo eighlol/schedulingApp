@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SchedulingApp.ApiLogic.Requests.Dtos;
+using System;
 using System.Threading.Tasks;
 using SchedulingApp.ApiLogic.Requests;
+using SchedulingApp.ApiLogic.Responses;
 
 namespace SchedulingApp.ApiLogic.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<CategoryViewModel> AddToEvent(Guid eventId);
+        Task AddToEvent(Guid eventId, AddCategoryToEventRequest request);
 
-        Task<IEnumerable<CategoryViewModel>> GetAll();
+        Task<GetAllCategoriesResponse> GetAll();
 
-        Task<CategoryViewModel> GetEventCategories(Guid eventId);
-
+        Task<GetEventCategoriesResponse> GetEventCategories(Guid eventId);
     }
 }

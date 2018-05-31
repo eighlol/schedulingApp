@@ -60,14 +60,19 @@ namespace SchedulingApp.ApiLogic.Services
 
             _eventRepository.AddEvent(newEvent);
 
-            if (!await _eventRepository.SaveAll())
-            {
-                throw new UseCaseException(HttpStatusCode.BadRequest, "Failed to create a new event.");
-            }
+            await EnsureEventCreatedInDatabase();
 
             var result = _mapper.Map<EventDto>(newEvent);
 
             return result;
+        }
+
+        private async Task EnsureEventCreatedInDatabase()
+        {
+            if (!await _eventRepository.SaveAll())
+            {
+                throw new UseCaseException(HttpStatusCode.BadRequest, "Failed to create a new event.");
+            }
         }
 
         private async Task ValidateLocations(IEnumerable<Location> locations)

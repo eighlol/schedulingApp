@@ -5,8 +5,6 @@ namespace SchedulingApp.ApiLogic.Requests
 {
     public class LocationViewModel
     {
-        public Guid Id { get; set; }
-
         [Required]
         [StringLength(255, MinimumLength = 5)]
         public string Name { get; set; }

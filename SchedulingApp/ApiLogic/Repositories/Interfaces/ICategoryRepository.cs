@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SchedulingApp.Domain.Entities;
 
 namespace SchedulingApp.ApiLogic.Repositories.Interfaces
 {
     public interface ICategoryRepository
     {
-        IEnumerable<Category> GetAllCategories();
+        Task<IEnumerable<Category>> GetAllCategories();
+        
+        Task<Category> Get(Guid id);
 
-        IEnumerable<Event> GetAllEvents();
+        Task<IEnumerable<Category>> GetMainCategories();
 
-        IEnumerable<Event> GetAllEventsDetailed();
-
-        Category GetCategoryById(Guid id);
-
-        IEnumerable<Category> GetMainCategories();
-
-        IEnumerable<Category> GetSubCategories(Guid parentId);
+        Task<IEnumerable<Category>> GetSubCategories(Guid parentId);
 
         bool SaveAll();
 
-        void AddCategoryToEvent(Guid eventId, Category newCategory, string username);
+        void AddCategoryToEvent(Event @event, Guid categoryId);
 
-        IEnumerable<Category> GetUserCategories(Guid eventId, string username);
+        Task<IEnumerable<Category>> GetEventCategories(Guid eventId);
     }
 }

@@ -13,5 +13,4 @@ namespace SchedulingApp.Domain.Entities
 
         public ICollection<EventCategory> EventCategories { get; set; }
     }
-        
 }

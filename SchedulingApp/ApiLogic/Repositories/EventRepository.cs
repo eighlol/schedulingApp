@@ -52,7 +52,7 @@ namespace SchedulingApp.ApiLogic.Repositories
             }
         }
 
-        public Event GetEventDetailedById(Guid id)
+        public Event GetEventDetailed(Guid id)
         {
             try
             {
@@ -60,6 +60,24 @@ namespace SchedulingApp.ApiLogic.Repositories
                     .Include(i => i.EventCategories)
                     .Include(i => i.Locations)
                     .Include(i => i.EventMembers).FirstOrDefault(w => w.Id == id);
+
+                return @event;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Failed to get event from database", e);
+                throw new UseCaseException(HttpStatusCode.InternalServerError, "Failed to access data");
+            }
+        }
+
+        public async Task<Event> GetEvent(Guid id)
+        {
+            try
+            {
+                Event @event = await _context.Events
+                    .Include(i => i.EventCategories)
+                    .Include(i => i.Locations)
+                    .Include(i => i.EventMembers).FirstOrDefaultAsync(w => w.Id == id);
 
                 return @event;
             }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SchedulingApp.ApiLogic.Requests.Dtos
+namespace SchedulingApp.ApiLogic.Requests
 {
-    public class CategoryDto
+    public class AddCategoryToEventRequest
     {
         [Required]
         public Guid CategoryId { get; set; }        

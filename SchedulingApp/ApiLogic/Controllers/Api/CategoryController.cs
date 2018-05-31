@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SchedulingApp.ApiLogic.Repositories.Interfaces;
-using SchedulingApp.ApiLogic.Requests;
+using SchedulingApp.ApiLogic.Requests.Dtos;
+using SchedulingApp.ApiLogic.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+using System.Threading.Tasks;
+using SchedulingApp.ApiLogic.Requests;
 
 namespace SchedulingApp.ApiLogic.Controllers.Api
 {
@@ -15,90 +12,30 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
     [Route("api")]
     public class CategoryController : Controller
     {
-        private readonly IConferenceRepository _repository;
-        private readonly IMapper _mapper;
-        private readonly ILogger<CategoryController> _logger;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(IConferenceRepository repository, IMapper mapper, ILogger<CategoryController> logger)
+        public CategoryController(ICategoryService categoryService)
         {
-            _repository = repository;
-            _mapper = mapper;
-            _logger = logger;
+            _categoryService = categoryService;
         }
 
         [HttpGet("events/{eventId}/categories")]
-        public JsonResult GetEventCategories(Guid eventId)
+        public async Task<IActionResult> GetEventCategories(Guid eventId)
         {
-            try
-            {
-                var results = _repository.GetUserCategories(eventId, User.Identity.Name);
-                if (results == null)
-                {
-                    Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    return Json(null);
-                }
-                return Json(_mapper.Map<IEnumerable<CategoryViewModel>>(results.OrderBy(o => o.ParentId)));
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Failed to get catorgies for event {eventId}", e);
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("Error occurred finding event id");
-            }
+            return Ok(await _categoryService.GetEventCategories(eventId));
         }
 
         [HttpGet("categories")]
-        public JsonResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            try
-            {
-                var results = _repository.GetAllCategories();
-                if (results == null)
-                {
-                    Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    return Json(null);
-                }
-                return Json(_mapper.Map<IEnumerable<CategoryViewModel>>(results));
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Failed to get categories from database", e);
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("Error occured finding categories");
-            }
+            return Ok(await _categoryService.GetAll());
         }
         
-        [HttpPost("events/{eventId}/categories")]
-        public JsonResult AddToEvent(Guid eventId, [FromBody]CategoryViewModel category)
+        [HttpPut("events/{eventId}/categories")]
+        public async Task<IActionResult> AddToEvent(Guid eventId, [FromBody]AddCategoryToEventRequest request)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var newCategory = _repository.GetCategoryById(category.Id);
-                    if (newCategory == null)
-                    {
-                        Response.StatusCode = (int)HttpStatusCode.NotFound;
-                        return Json(null);
-                    }
-                    _repository.AddCategoryToEvent(eventId, newCategory, User.Identity.Name);
-                    if (_repository.SaveAll())
-                    {
-                        Response.StatusCode = (int)HttpStatusCode.Created;
-                        return Json(_mapper.Map<CategoryViewModel>(newCategory));
-                    }                    
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Failed to add category for event {eventId}", e);
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("Failed to add category");
-            }
-
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            return Json("Validation failed on new category");
+            await _categoryService.AddToEvent(eventId, request);
+            return Ok();
         }
     }
 }
-
