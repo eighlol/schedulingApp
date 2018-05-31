@@ -11,6 +11,10 @@ namespace SchedulingApp.ApiLogic.Repositories.Interfaces
 
         Task<IEnumerable<Location>> GetEventLocations(Guid eventId);
 
+        Task<Location> GetLocation(Guid locationId);
+
+        void Delete(Location location);
+
         Task<bool> SaveAll();
     }
 }

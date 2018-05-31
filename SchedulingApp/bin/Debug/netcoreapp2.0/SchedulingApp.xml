@@ -60,6 +60,14 @@
             <param name="request">Location request</param>
             <returns></returns>
         </member>
+        <member name="M:SchedulingApp.ApiLogic.Controllers.Api.LocationController.Delete(System.Guid,System.Guid)">
+            <summary>
+            Delete location from the event.
+            </summary>
+            <param name="eventId">Event Id</param>
+            <param name="locationId">Location Id</param>
+            <returns></returns>
+        </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.MemberController.Get(System.Guid)">
             <summary>
             Get event members.

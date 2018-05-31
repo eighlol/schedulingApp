@@ -10,6 +10,7 @@ namespace SchedulingApp.ApiLogic.Services.Interfaces
         Task AddToEvent(Guid eventId, AddLocationToEventRequest request);
 
         Task<GetEventLocationsResponse> GetEventLocations(Guid eventId);
+
+        Task Delete(Guid eventId, Guid locationId);
     }
 }
-

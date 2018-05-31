@@ -92,5 +92,36 @@ namespace SchedulingApp.ApiLogic.Services
                 Locations = locationsDto
             };
         }
+
+        public async Task Delete(Guid eventId, Guid locationId)
+        {
+            var @event = await _eventRepository.Get(eventId);
+
+            EnsureEventExists(@event);
+
+            var location = await _locationRepository.GetLocation(locationId);
+
+            EnsureLocationExists(location);
+
+            _locationRepository.Delete(location);
+
+            await EnsureLocationIsDeletedInDataBase();
+        }
+
+        private void EnsureLocationExists(Location location)
+        {
+            if (location == null)
+            {
+                throw new UseCaseException(HttpStatusCode.NotFound, "Location was not found.");
+            }
+        }
+
+        private async Task EnsureLocationIsDeletedInDataBase()
+        {
+            if (!await _locationRepository.SaveAll())
+            {
+                throw new UseCaseException(HttpStatusCode.BadRequest, "Failed to remove location from the event.");
+            }
+        }
     }
 }

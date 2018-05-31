@@ -90,7 +90,6 @@ namespace SchedulingApp
             });
 
             services.AddSingleton<ICoordService, CoordService>();
-            services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();

@@ -41,5 +41,18 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             await _locationService.AddToEvent(eventId, request);
             return Ok();
         }
+
+        /// <summary>
+        /// Delete location from the event.
+        /// </summary>
+        /// <param name="eventId">Event Id</param>
+        /// <param name="locationId">Location Id</param>
+        /// <returns></returns>
+        [HttpDelete("{locationId}")]
+        public async Task<IActionResult> Delete(Guid eventId, Guid locationId)
+        {
+            await _locationService.Delete(eventId, locationId);
+            return NoContent();
+        }
     }
 }

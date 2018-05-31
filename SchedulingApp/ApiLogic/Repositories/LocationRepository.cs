@@ -43,6 +43,33 @@ namespace SchedulingApp.ApiLogic.Repositories
             }
         }
 
+        public async Task<Location> GetLocation(Guid locationId)
+        {
+            try
+            {
+                Location location = await _context.Locations.FirstOrDefaultAsync(l => l.Id == locationId);
+                return location;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Failed to get event location. ", e);
+                throw new UseCaseException(HttpStatusCode.InternalServerError, "Failed to access data");
+            }
+        }
+
+        public void Delete(Location location)
+        {
+            try
+            {
+                _context.Locations.Remove(location);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Failed to delete location", e);
+                throw new UseCaseException(HttpStatusCode.InternalServerError, "Failed to access data");
+            }
+        }
+
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
