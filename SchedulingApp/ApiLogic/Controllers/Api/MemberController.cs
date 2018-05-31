@@ -21,13 +21,23 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             _logger = logger;
         }
 
+        /// <summary>
+        /// Get event members.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         [HttpGet("events/{eventId}/members")]
         public async Task<IActionResult> Get(Guid eventId)
         {
             return Ok(await _memberService.GetEventMembers(eventId));
         }
-
-
+        
+        /// <summary>
+        /// Add member to the event.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut("events/{eventId}/members")]
         public async Task<IActionResult> Add(Guid eventId, [FromBody] AddMemberToEventRequest request)
         {
@@ -35,6 +45,12 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             return Ok();
         }
 
+        /// <summary>
+        /// Delete member from the event.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
         [HttpDelete("events/{eventId}/members/{memberId}")]
         public async Task<IActionResult> Delete(Guid eventId, Guid memberId)
         {
@@ -42,6 +58,11 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete all members from the event.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         [HttpDelete("events/{eventId}/members")]
         public async Task<IActionResult> DeleteAll(Guid eventId)
         {
@@ -49,6 +70,11 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             return NoContent();
         }
 
+        /// <summary>
+        /// Add new member.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
 
         [HttpPost("members")]
         public async Task<IActionResult> AddNewMember([FromBody] AddMemberRequest request)
@@ -57,6 +83,10 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             return Ok();
         }
 
+        /// <summary>
+        /// Get all members.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("members")]
         public async Task<IActionResult> GetAllMembers()
         {

@@ -19,18 +19,33 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             _categoryService = categoryService;
         }
 
+        /// <summary>
+        /// Get event categories.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         [HttpGet("events/{eventId}/categories")]
         public async Task<IActionResult> GetEventCategories(Guid eventId)
         {
             return Ok(await _categoryService.GetEventCategories(eventId));
         }
 
+        /// <summary>
+        /// Get all categories.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("categories")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _categoryService.GetAll());
         }
         
+        /// <summary>
+        /// Add category to the event.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut("events/{eventId}/categories")]
         public async Task<IActionResult> AddToEvent(Guid eventId, [FromBody]AddCategoryToEventRequest request)
         {

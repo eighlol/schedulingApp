@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.IO;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,7 @@ using SchedulingApp.Infrastucture.Sql;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace SchedulingApp
 {
@@ -43,17 +45,21 @@ namespace SchedulingApp
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Info
-                {
-                    Version = "v1",
-                    Description = "Scheduling App API",
-                    TermsOfService = "None",
-                    Contact = new Contact
+                options.SwaggerDoc("v1",
+                    new Info
                     {
-                        Email = "mrudens@gmail.com",
-                        Name = "Anthony"
-                    }
-                });
+                        Version = "v1",
+                        Description = "Scheduling App API",
+                        TermsOfService = "None",
+                        Contact = new Contact
+                        {
+                            Email = "mrudens@gmail.com",
+                            Name = "Anthony"
+                        }
+                    });
+
+                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "SchedulingApp.xml");
+                options.IncludeXmlComments(filePath);
             });
 
             services.AddDbContext<SchedulingAppDbContext>(options =>

@@ -18,12 +18,21 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             _eventService = eventService;
         }
 
+        /// <summary>
+        /// Get all user events.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _eventService.GetAll(User.Identity.Name));
         }
-
+        
+        /// <summary>
+        /// Create new event.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("")]
         public async Task<IActionResult> CreateNew([FromBody]CreateEventRequest request)
         {
@@ -31,6 +40,11 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
             return Ok();
         }
 
+        /// <summary>
+        /// Delete event.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
