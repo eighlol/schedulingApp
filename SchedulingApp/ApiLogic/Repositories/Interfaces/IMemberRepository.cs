@@ -15,7 +15,7 @@ namespace SchedulingApp.ApiLogic.Repositories.Interfaces
 
         Task AddNewMember(Member member);
 
-        void Delete(Member member);
+        Task Delete(Member member);
 
         Task<Member> Get(Guid id);
 

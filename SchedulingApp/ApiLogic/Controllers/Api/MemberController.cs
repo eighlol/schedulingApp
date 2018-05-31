@@ -92,5 +92,17 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         {
             return Ok(await _memberService.GetMembers(User.Identity.Name));
         }
+
+        /// <summary>
+        /// Delete member.
+        /// </summary>
+        /// <param name="memberId">Member Id.</param>
+        /// <returns></returns>
+        [HttpDelete("members/{memberId}")]
+        public async Task<IActionResult> Delete(Guid memberId)
+        {
+            await _memberService.DeleteMember(memberId);
+            return NoContent();
+        }
     }
 }

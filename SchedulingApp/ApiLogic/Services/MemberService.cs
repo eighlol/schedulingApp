@@ -131,7 +131,7 @@ namespace SchedulingApp.ApiLogic.Services
 
             EnsureMemberExists(member);
 
-            _memberRepository.Delete(member);
+            await _memberRepository.Delete(member);
 
             await EnsureMemberDeletedInDataBase();
         }

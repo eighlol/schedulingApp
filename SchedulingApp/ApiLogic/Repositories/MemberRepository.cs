@@ -46,8 +46,10 @@ namespace SchedulingApp.ApiLogic.Repositories
             await _context.Members.AddAsync(member);
         }
 
-        public void Delete(Member member)
+        public async Task Delete(Member member)
         {
+            List<EventMember> eventMembers = await _context.EventMembers.Where(ev => ev.MemberId == member.Id).ToListAsync();
+            _context.EventMembers.RemoveRange(eventMembers);
             _context.Members.Remove(member);
         }
 

@@ -103,5 +103,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SchedulingApp.ApiLogic.Controllers.Api.MemberController.Delete(System.Guid)">
+            <summary>
+            Delete member.
+            </summary>
+            <param name="memberId">Member Id.</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
