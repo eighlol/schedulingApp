@@ -8,7 +8,7 @@
             <summary>
             Get event categories.
             </summary>
-            <param name="eventId"></param>
+            <param name="eventId">Event id</param>
             <returns></returns>
         </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.CategoryController.GetAll">
@@ -21,8 +21,8 @@
             <summary>
             Add category to the event.
             </summary>
-            <param name="eventId"></param>
-            <param name="request"></param>
+            <param name="eventId">Event Id</param>
+            <param name="request">Category request</param>
             <returns></returns>
         </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.EventController.GetAll">
@@ -35,51 +35,66 @@
             <summary>
             Create new event.
             </summary>
-            <param name="request"></param>
+            <param name="request">Event request</param>
             <returns></returns>
         </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.EventController.Delete(System.Guid)">
             <summary>
             Delete event.
             </summary>
-            <param name="id"></param>
+            <param name="id">Event Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:SchedulingApp.ApiLogic.Controllers.Api.LocationController.Get(System.Guid)">
+            <summary>
+            Returns locations for the event.
+            </summary>
+            <param name="eventId">Event Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:SchedulingApp.ApiLogic.Controllers.Api.LocationController.Add(System.Guid,SchedulingApp.ApiLogic.Requests.AddLocationToEventRequest)">
+            <summary>
+            Creates location for the event.
+            </summary>
+            <param name="eventId">Event Id</param>
+            <param name="request">Location request</param>
             <returns></returns>
         </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.MemberController.Get(System.Guid)">
             <summary>
             Get event members.
             </summary>
-            <param name="eventId"></param>
+            <param name="eventId">Event Id</param>
             <returns></returns>
         </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.MemberController.Add(System.Guid,SchedulingApp.ApiLogic.Requests.AddMemberToEventRequest)">
             <summary>
             Add member to the event.
             </summary>
-            <param name="eventId"></param>
-            <param name="request"></param>
+            <param name="eventId">Event Id</param>
+            <param name="request">Member request</param>
             <returns></returns>
         </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.MemberController.Delete(System.Guid,System.Guid)">
             <summary>
             Delete member from the event.
             </summary>
-            <param name="eventId"></param>
-            <param name="memberId"></param>
+            <param name="eventId">Event Id</param>
+            <param name="memberId">Member Id</param>
             <returns></returns>
         </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.MemberController.DeleteAll(System.Guid)">
             <summary>
             Delete all members from the event.
             </summary>
-            <param name="eventId"></param>
+            <param name="eventId">Event Id</param>
             <returns></returns>
         </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.MemberController.AddNewMember(SchedulingApp.ApiLogic.Requests.AddMemberRequest)">
             <summary>
             Add new member.
             </summary>
-            <param name="request"></param>
+            <param name="request">Member request</param>
             <returns></returns>
         </member>
         <member name="M:SchedulingApp.ApiLogic.Controllers.Api.MemberController.GetAllMembers">

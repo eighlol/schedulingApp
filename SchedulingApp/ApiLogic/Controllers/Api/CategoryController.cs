@@ -22,7 +22,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         /// <summary>
         /// Get event categories.
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="eventId">Event id</param>
         /// <returns></returns>
         [HttpGet("events/{eventId}/categories")]
         public async Task<IActionResult> GetEventCategories(Guid eventId)
@@ -43,8 +43,8 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         /// <summary>
         /// Add category to the event.
         /// </summary>
-        /// <param name="eventId"></param>
-        /// <param name="request"></param>
+        /// <param name="eventId">Event Id</param>
+        /// <param name="request">Category request</param>
         /// <returns></returns>
         [HttpPut("events/{eventId}/categories")]
         public async Task<IActionResult> AddToEvent(Guid eventId, [FromBody]AddCategoryToEventRequest request)

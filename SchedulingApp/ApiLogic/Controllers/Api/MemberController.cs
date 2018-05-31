@@ -24,7 +24,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         /// <summary>
         /// Get event members.
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="eventId">Event Id</param>
         /// <returns></returns>
         [HttpGet("events/{eventId}/members")]
         public async Task<IActionResult> Get(Guid eventId)
@@ -35,8 +35,8 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         /// <summary>
         /// Add member to the event.
         /// </summary>
-        /// <param name="eventId"></param>
-        /// <param name="request"></param>
+        /// <param name="eventId">Event Id</param>
+        /// <param name="request">Member request</param>
         /// <returns></returns>
         [HttpPut("events/{eventId}/members")]
         public async Task<IActionResult> Add(Guid eventId, [FromBody] AddMemberToEventRequest request)
@@ -48,8 +48,8 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         /// <summary>
         /// Delete member from the event.
         /// </summary>
-        /// <param name="eventId"></param>
-        /// <param name="memberId"></param>
+        /// <param name="eventId">Event Id</param>
+        /// <param name="memberId">Member Id</param>
         /// <returns></returns>
         [HttpDelete("events/{eventId}/members/{memberId}")]
         public async Task<IActionResult> Delete(Guid eventId, Guid memberId)
@@ -61,7 +61,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         /// <summary>
         /// Delete all members from the event.
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="eventId">Event Id</param>
         /// <returns></returns>
         [HttpDelete("events/{eventId}/members")]
         public async Task<IActionResult> DeleteAll(Guid eventId)
@@ -73,7 +73,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         /// <summary>
         /// Add new member.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">Member request</param>
         /// <returns></returns>
 
         [HttpPost("members")]

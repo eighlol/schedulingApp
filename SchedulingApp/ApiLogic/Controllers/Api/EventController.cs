@@ -31,7 +31,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         /// <summary>
         /// Create new event.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">Event request</param>
         /// <returns></returns>
         [HttpPost("")]
         public async Task<IActionResult> CreateNew([FromBody]CreateEventRequest request)
@@ -43,7 +43,7 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
         /// <summary>
         /// Delete event.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Event Id</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)

@@ -1,33 +1,51 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.Domain.Entities;
+using SchedulingApp.Infrastucture.Middleware.Exception;
 using SchedulingApp.Infrastucture.Sql;
 
 namespace SchedulingApp.ApiLogic.Repositories
 {
     public class LocationRepository : ILocationRepository
     {
-        private readonly ILogger<ConferenceRepository> _logger;
+        private readonly ILogger<LocationRepository> _logger;
         private readonly SchedulingAppDbContext _context;
 
-        public LocationRepository(SchedulingAppDbContext context, ILogger<ConferenceRepository> logger)
+        public LocationRepository(SchedulingAppDbContext context, ILogger<LocationRepository> logger)
         {
             _logger = logger;
             _context = context;
         }
-
-        public void AddLocation(Event ev, Location newLocation, string username)
+        
+        public void AddLocation(Event ev, Location newLocation)
         {
-            _logger.LogInformation("Adding location to the event.");
-            //var ev = GetUserEventByIdDetailed(eventId, username);
             ev.Locations.Add(newLocation);
-            _context.Locations.Add(newLocation);
+            _context.Update(ev);
         }
 
-        public bool SaveAll()
+        public async Task<IEnumerable<Location>> GetEventLocations(Guid eventId)
         {
-            return _context.SaveChanges() > 0;
+            try
+            {
+                List<Location> locations = await _context.Locations.Where(l => l.Event.Id == eventId).ToListAsync();
+                return locations;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Failed to get event locations. ", e);
+                throw new UseCaseException(HttpStatusCode.InternalServerError, "Failed to access data");
+            }
         }
 
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

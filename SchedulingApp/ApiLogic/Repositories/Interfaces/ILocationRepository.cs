@@ -1,11 +1,16 @@
-﻿using SchedulingApp.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using SchedulingApp.Domain.Entities;
 
 namespace SchedulingApp.ApiLogic.Repositories.Interfaces
 {
     public interface ILocationRepository
     {
-        bool SaveAll();
+        void AddLocation(Event ev, Location newLocation);
 
-        void AddLocation(Event ev, Location newLocation, string username);
+        Task<IEnumerable<Location>> GetEventLocations(Guid eventId);
+
+        Task<bool> SaveAll();
     }
 }

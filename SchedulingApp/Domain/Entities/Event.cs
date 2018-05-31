@@ -6,7 +6,7 @@ namespace SchedulingApp.Domain.Entities
     {
         public string Name { get; set; }
 
-        public List<Location> Locations { get; set; }
+        public ICollection<Location> Locations { get; set; } = new List<Location>();
 
         public string Description { get; set; }
 

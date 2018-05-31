@@ -94,6 +94,7 @@ namespace SchedulingApp
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMemberService, MemberService>();
+            services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
