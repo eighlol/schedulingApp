@@ -15,7 +15,7 @@ namespace SchedulingApp.ApiLogic.Repositories.Interfaces
         
         Event GetEventDetailed(Guid id);
 
-        Task<Event> GetEvent(Guid id);
+        Task<Event> Get(Guid id);
 
         void AddEvent(Event newEvent);
 

@@ -14,10 +14,10 @@ namespace SchedulingApp.ApiLogic.Repositories
 {
     public class EventRepository : IEventRepository
     {
-        private readonly ILogger<ConferenceRepository> _logger;
+        private readonly ILogger<EventRepository> _logger;
         private readonly SchedulingAppDbContext _context;
 
-        public EventRepository(SchedulingAppDbContext context, ILogger<ConferenceRepository> logger)
+        public EventRepository(SchedulingAppDbContext context, ILogger<EventRepository> logger)
         {
             _logger = logger;
             _context = context;
@@ -70,7 +70,7 @@ namespace SchedulingApp.ApiLogic.Repositories
             }
         }
 
-        public async Task<Event> GetEvent(Guid id)
+        public async Task<Event> Get(Guid id)
         {
             try
             {

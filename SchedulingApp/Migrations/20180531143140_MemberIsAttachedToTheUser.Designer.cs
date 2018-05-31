@@ -11,9 +11,10 @@ using System;
 namespace SchedulingApp.Migrations
 {
     [DbContext(typeof(SchedulingAppDbContext))]
-    partial class SchedulingAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180531143140_MemberIsAttachedToTheUser")]
+    partial class MemberIsAttachedToTheUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

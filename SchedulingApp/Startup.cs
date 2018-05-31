@@ -59,7 +59,7 @@ namespace SchedulingApp
             services.AddDbContext<SchedulingAppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ConferenceUser, IdentityRole>(config =>
+            services.AddIdentity<ScheduleAppUser, IdentityRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 6;
@@ -87,9 +87,11 @@ namespace SchedulingApp
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<IMemberRepository, MemberRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,5 +9,6 @@ namespace SchedulingApp.Domain.Entities
 
         public string Gender { get; set; }
 
+        public string UserName { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace SchedulingApp.ApiLogic.Services
 
         public async Task AddToEvent(Guid eventId, AddCategoryToEventRequest request)
         {
-            Event @event = await _eventRepository.GetEvent(eventId);
+            Event @event = await _eventRepository.Get(eventId);
 
             EnsureEventExists(@event);
 
@@ -83,7 +83,7 @@ namespace SchedulingApp.ApiLogic.Services
         {
             _logger.LogInformation($"Getting event categories for event {eventId}.");
 
-            Event @event = await _eventRepository.GetEvent(eventId);
+            Event @event = await _eventRepository.Get(eventId);
 
             EnsureEventExists(@event);
 

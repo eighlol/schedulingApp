@@ -11,9 +11,9 @@ namespace SchedulingApp.ApiLogic.Controllers
     [AllowAnonymous]
     public class AuthController : Controller
     {
-        private readonly SignInManager<ConferenceUser> _signInManager;
+        private readonly SignInManager<ScheduleAppUser> _signInManager;
 
-        public AuthController(SignInManager<ConferenceUser> signInManager)
+        public AuthController(SignInManager<ScheduleAppUser> signInManager)
         {
             _signInManager = signInManager;
         }

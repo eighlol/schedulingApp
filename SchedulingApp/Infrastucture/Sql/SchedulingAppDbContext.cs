@@ -7,7 +7,7 @@ using SchedulingApp.Domain.Entities;
 
 namespace SchedulingApp.Infrastucture.Sql
 {
-    public class SchedulingAppDbContext : IdentityDbContext<ConferenceUser>
+    public class SchedulingAppDbContext : IdentityDbContext<ScheduleAppUser>
     {
         public DbSet<Event> Events { get; set; }
 

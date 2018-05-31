@@ -91,7 +91,7 @@ namespace SchedulingApp.ApiLogic.Services
         {
             _logger.LogInformation($"Deleting event with id {eventId}");
 
-            var eventToDelte = await _eventRepository.GetEvent(eventId);
+            var eventToDelte = await _eventRepository.Get(eventId);
 
             EnsureEventExists(eventId, eventToDelte);
 

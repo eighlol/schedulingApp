@@ -1,23 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SchedulingApp.Domain.Entities;
 
 namespace SchedulingApp.ApiLogic.Repositories.Interfaces
 {
     public interface IMemberRepository
     {
-        void AddMemberToEvent(Guid eventId, Member newMember, string name);
+        void AddMemberToEvent(Event @event, Guid memberId);
 
-        void DeleteMemberFromEvent(Guid eventId, Member newMember, string name);
+        Task DeleteMemberFromEvent(Guid eventId, Guid memberId);
 
-        void DeleteAllMembersFromEvent(Guid eventId, string username);
+        void DeleteAllMembersFromEvent(Event @event);
 
-        void AddNewMember(Member member);
+        Task AddNewMember(Member member);
 
-        Member GetMemberyById(Guid id);
+        void Delete(Member member);
 
-        IEnumerable<Member> GetAllMembers();
+        Task<Member> Get(Guid id);
 
-        IEnumerable<Member> GetEventMembers(Guid eventId, string username);
+        Task<IEnumerable<Member>> GetAllMembers(string userName);
+
+        Task<IEnumerable<Member>> GetEventMembers(Guid eventId);
+
+        Task<bool> SaveAll();
     }
 }

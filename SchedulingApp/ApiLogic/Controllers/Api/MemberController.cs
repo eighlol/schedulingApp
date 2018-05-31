@@ -1,14 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Requests;
-using SchedulingApp.Domain.Entities;
+using SchedulingApp.ApiLogic.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+using System.Threading.Tasks;
 
 namespace SchedulingApp.ApiLogic.Controllers.Api
 {
@@ -16,167 +12,55 @@ namespace SchedulingApp.ApiLogic.Controllers.Api
     [Route("api")]
     public class MemberController : Controller
     {
-        private readonly IConferenceRepository _repository;
-        private readonly IMapper _mapper;
+        private readonly IMemberService _memberService;
         private readonly ILogger<MemberController> _logger;
 
-        public MemberController(IConferenceRepository repository, IMapper mapper, ILogger<MemberController> logger)
+        public MemberController(IMemberService memberService, ILogger<MemberController> logger)
         {
-            _repository = repository;
-            _mapper = mapper;
+            _memberService = memberService;
             _logger = logger;
         }
 
         [HttpGet("events/{eventId}/members")]
-        public JsonResult Get(Guid eventId)
+        public async Task<IActionResult> Get(Guid eventId)
         {
-            try
-            {
-                IEnumerable<Member> results = _repository.GetEventMembers(eventId, User.Identity.Name);
-                if (results == null)
-                {
-                    Response.StatusCode = (int) HttpStatusCode.NotFound;
-                    return Json(null);
-                }
-
-                return Json(_mapper.Map<IEnumerable<MemberViewModel>>(results.OrderBy(o => o.Name)));
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Failed to get members for event {eventId}", e);
-                Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return Json("Error occurred finding event id");
-            }
+            return Ok(await _memberService.GetEventMembers(eventId));
         }
 
 
         [HttpPost("events/{eventId}/members")]
-        public JsonResult Add(Guid eventId, [FromBody] MemberViewModel member)
+        public async Task<IActionResult> Add(Guid eventId, [FromBody] AddMemberToEventRequest request)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var newMember = _mapper.Map<Member>(member);
-
-                    _repository.AddMemberToEvent(eventId, newMember, User.Identity.Name);
-
-                    if (_repository.SaveAll())
-                    {
-                        Response.StatusCode = (int) HttpStatusCode.Created;
-                        return Json(_mapper.Map<MemberViewModel>(_repository.GetMemberyById(newMember.Id)));
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Failed to save new member", e);
-                Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return Json("Failed to save new member");
-            }
-
-            Response.StatusCode = (int) HttpStatusCode.BadRequest;
-            return Json("Validation failed on new member");
+            await _memberService.AddToEvent(eventId, request);
+            return Ok();
         }
 
-        [HttpDelete("events/{eventId}/members/{id}")]
-        public JsonResult Delete(Guid eventId, Guid id)
+        [HttpDelete("events/{eventId}/members/{memberId}")]
+        public async Task<IActionResult> Delete(Guid eventId, Guid memberId)
         {
-            try
-            {
-                var eventMembers = _repository.GetEventMembers(eventId, User.Identity.Name);
-                var member = eventMembers.FirstOrDefault(a => a.Id == id);
-                if (member != null)
-                {
-                    _repository.DeleteMemberFromEvent(eventId, member, User.Identity.Name);
-                    if (_repository.SaveAll())
-                    {
-                        return Json(true);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Failed to delete a member {id}", e);
-                Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return Json(new {Message = e.Message});
-            }
-
-            Response.StatusCode = (int) HttpStatusCode.BadRequest;
-            return Json(new {Message = "Failed"});
+            await _memberService.DeleteMemberFromEvent(eventId, memberId);
+            return NoContent();
         }
 
         [HttpDelete("events/{eventId}/members")]
-        public JsonResult DeleteAll(Guid eventId)
+        public async Task<IActionResult> DeleteAll(Guid eventId)
         {
-            try
-            {
-                _repository.DeleteAllMembersFromEvent(eventId, User.Identity.Name);
-                if (_repository.SaveAll())
-                {
-                    return Json(true);
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Failed to delete all members {eventId}", e);
-                Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return Json(new {e.Message});
-            }
-
-            Response.StatusCode = (int) HttpStatusCode.OK;
-            return Json(new {Message = "No memebers found"});
+            await _memberService.DeleteMembersFromEvent(eventId);
+            return NoContent();
         }
 
 
         [HttpPost("members")]
-        public JsonResult AddNewMember([FromBody] MemberViewModel member)
+        public async Task<IActionResult> AddNewMember([FromBody] AddMemberRequest request)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var newMember = _mapper.Map<Member>(member);
-                    _repository.AddNewMember(newMember);
-
-                    if (_repository.SaveAll())
-                    {
-                        Response.StatusCode = (int) HttpStatusCode.Created;
-                        return Json(_mapper.Map<MemberViewModel>(newMember));
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Failed to add new member", e);
-                Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return Json(new { e.Message });
-            }
-
-            Response.StatusCode = (int) HttpStatusCode.BadRequest;
-            return Json("Validation failed on new member");
+            await _memberService.Add(request, User.Identity.Name);
+            return Ok();
         }
 
         [HttpGet("members")]
-        public JsonResult GetAllMembers()
+        public async Task<IActionResult> GetAllMembers()
         {
-            try
-            {
-                var results = _repository.GetAllMembers();
-                if (results == null)
-                {
-                    Response.StatusCode = (int) HttpStatusCode.NotFound;
-                    return Json(null);
-                }
-
-                return Json(_mapper.Map<IEnumerable<MemberViewModel>>(results));
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Failed to get members from database", e);
-                Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return Json("Error occured finding members");
-            }
+            return Ok(await _memberService.GetMembers(User.Identity.Name));
         }
     }
 }
