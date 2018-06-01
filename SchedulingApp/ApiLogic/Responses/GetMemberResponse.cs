@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using SchedulingApp.ApiLogic.Responses.Dtos;
 
 namespace SchedulingApp.ApiLogic.Responses
 {
     public class GetMemberResponse
     {
-        public List<Dtos.MemberDto> Members { get; set; }
+        public List<MemberDto> Members { get; set; }
     }
 }

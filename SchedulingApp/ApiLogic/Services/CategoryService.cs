@@ -1,16 +1,17 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using SchedulingApp.ApiLogic.Repositories.Interfaces;
-using SchedulingApp.ApiLogic.Requests;
-using SchedulingApp.ApiLogic.Responses;
-using SchedulingApp.ApiLogic.Services.Interfaces;
-using SchedulingApp.Domain.Entities;
-using SchedulingApp.Infrastucture.Middleware.Exception;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
+using SchedulingApp.ApiLogic.Repositories.Interfaces;
+using SchedulingApp.ApiLogic.Requests;
+using SchedulingApp.ApiLogic.Responses;
+using SchedulingApp.ApiLogic.Responses.Dtos;
+using SchedulingApp.ApiLogic.Services.Interfaces;
+using SchedulingApp.Domain.Entities;
+using SchedulingApp.Infrastucture.Middleware.Exception;
 using SchedulingApp.Infrastucture.Utils;
 
 namespace SchedulingApp.ApiLogic.Services
@@ -85,7 +86,7 @@ namespace SchedulingApp.ApiLogic.Services
         {
             IEnumerable<Category> categories = await _categoryRepository.GetAllCategories();
 
-            var categoriesDto = _mapper.Map<List<Responses.Dtos.CategoryDto>>(categories);
+            var categoriesDto = _mapper.Map<List<CategoryDto>>(categories);
 
             return new GetAllCategoriesResponse
             {
@@ -103,7 +104,7 @@ namespace SchedulingApp.ApiLogic.Services
 
             var categories = await _categoryRepository.GetEventCategories(eventId);
 
-            var categoriesDto = _mapper.Map<List<Responses.Dtos.CategoryDto>>(categories);
+            var categoriesDto = _mapper.Map<List<CategoryDto>>(categories);
 
             return new GetEventCategoriesResponse
             {

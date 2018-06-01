@@ -1,5 +1,5 @@
-﻿using SchedulingApp.ApiLogic.Requests.Dtos;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using SchedulingApp.ApiLogic.Requests.Dtos;
 
 namespace SchedulingApp.ApiLogic.Requests
 {

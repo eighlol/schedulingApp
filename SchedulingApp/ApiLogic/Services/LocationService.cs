@@ -47,7 +47,7 @@ namespace SchedulingApp.ApiLogic.Services
             await EnsureLocationIsSavedInDataBase();
         }
 
-        private static void EnsureEventExists(Domain.Entities.Event @event)
+        private static void EnsureEventExists(Event @event)
         {
             if (@event == null)
             {

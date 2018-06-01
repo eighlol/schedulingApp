@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using SchedulingApp.ApiLogic.Responses.Dtos;
 
 namespace SchedulingApp.ApiLogic.Responses
 {
     public class GetAllCategoriesResponse
     {
-        public List<Dtos.CategoryDto> Categories { get; set; }
+        public List<CategoryDto> Categories { get; set; }
     }
 }

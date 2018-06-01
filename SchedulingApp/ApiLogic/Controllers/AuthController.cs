@@ -39,15 +39,11 @@ namespace SchedulingApp.ApiLogic.Controllers
                     {
                         return RedirectToAction("Index", "App");
                     }
-                    else
-                    {
-                        return Redirect(returnUrl);
-                    }
+
+                    return Redirect(returnUrl);
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Username or password incorrect");
-                }
+
+                ModelState.AddModelError("", "Username or password incorrect");
             }
 
             return View();

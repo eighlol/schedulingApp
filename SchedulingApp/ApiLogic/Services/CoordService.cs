@@ -21,7 +21,7 @@ namespace SchedulingApp.ApiLogic.Services
 
         public async Task<CoordServiceResult> Lookup(string location)
         {
-            var result = new CoordServiceResult()
+            var result = new CoordServiceResult
             {
                 Success = false,
                 Message = "Undetermined failure while looking up coordinates"

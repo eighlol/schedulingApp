@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using SchedulingApp.ApiLogic.Requests;
 using SchedulingApp.ApiLogic.Responses.Dtos;
 using SchedulingApp.Domain.Entities;
-using System.Linq;
 
 namespace SchedulingApp.ApiLogic.MappingProfilese
 {

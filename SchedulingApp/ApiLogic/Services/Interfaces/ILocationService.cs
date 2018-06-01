@@ -1,7 +1,7 @@
-﻿using SchedulingApp.ApiLogic.Requests;
-using SchedulingApp.ApiLogic.Responses;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using SchedulingApp.ApiLogic.Requests;
+using SchedulingApp.ApiLogic.Responses;
 
 namespace SchedulingApp.ApiLogic.Services.Interfaces
 {

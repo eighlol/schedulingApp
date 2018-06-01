@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using SchedulingApp.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using SchedulingApp.Domain.Entities;
 
 namespace SchedulingApp.Infrastucture.Sql
 {
@@ -19,7 +19,7 @@ namespace SchedulingApp.Infrastucture.Sql
 
             if (await userManager.FindByEmailAsync("mrudens@gmail.com") == null)
             {
-                var newUser = new ScheduleAppUser()
+                var newUser = new ScheduleAppUser
                 {
                     UserName = "antonsjelchins",
                     Email = "mrudens@gmail.com",
@@ -31,21 +31,21 @@ namespace SchedulingApp.Infrastucture.Sql
 
             if (!context.Events.Any())
             {
-                var defaultcategories = new List<Category>()
+                var defaultcategories = new List<Category>
                 {
-                    new Category()
+                    new Category
                     {
                         Name = "Business",
                         Description = "Startups, coaching, financial events and more.",
                         ParentId = Guid.Empty
                     },
-                    new Category()
+                    new Category
                     {
                         Name = "Music",
                         Description = "Parties, festivals and more.",
                         ParentId = Guid.Empty
                     },
-                    new Category()
+                    new Category
                     {
                         Name = "Holiday",
                         Description = "Interesting places, events for your free time.",
@@ -53,14 +53,14 @@ namespace SchedulingApp.Infrastucture.Sql
                     }
                 };
 
-                var defaultEvent = new Event()
+                var defaultEvent = new Event
                 {
                     Name = "Atvērto durvju diena LU Datorikas fakultātē",
                     Description =
                         "Visi studētgribētāji ir laipni aicināti piedalīties Datorikas fakultātes Atvērto durvju dienā 2018. gada 19. martā plkst. 12.00 Raiņa bulvārī 19, 12. auditorijā!\r\nViesus uzrunās Datorikas fakultātes dekāns, studiju programmu direktori un studentu pašpārvaldes pārstāvji, būs iespēja uzzināt papildu informāciju par studiju programmām un uzdot jautājumus.",
-                    Locations = new List<Location>()
+                    Locations = new List<Location>
                     {
-                        new Location()
+                        new Location
                         {
                             Name = "Raiņa bulvāris 19, Centra rajons, Rīga, LV-1050",
                             EventStart = new DateTime(2018, 3, 19, 12, 00, 0),
@@ -71,14 +71,14 @@ namespace SchedulingApp.Infrastucture.Sql
                     },
                     UserName = "antonsjelchins"
                 };
-                var members = new List<Member>()
+                var members = new List<Member>
                 {
-                    new Member() { Name = "Daniels Kudrins", Gender = "male", UserName = "antonsjelchins" },
-                    new Member() { Name = "Andrejs Ivanovs", Gender = "male", UserName = "antonsjelchins" },
-                    new Member() { Name = "Dmitrijs Kuzenkovs", Gender = "male", UserName = "antonsjelchins" },
-                    new Member() { Name = "Aleksandra Kustova", Gender = "female", UserName = "antonsjelchins" },
-                    new Member() { Name = "Vladislavs Ķemers", Gender = "male", UserName = "antonsjelchins" },
-                    new Member() { Name = "Anastasija Elksnite", Gender = "female", UserName = "antonsjelchins" }
+                    new Member { Name = "Daniels Kudrins", Gender = "male", UserName = "antonsjelchins" },
+                    new Member { Name = "Andrejs Ivanovs", Gender = "male", UserName = "antonsjelchins" },
+                    new Member { Name = "Dmitrijs Kuzenkovs", Gender = "male", UserName = "antonsjelchins" },
+                    new Member { Name = "Aleksandra Kustova", Gender = "female", UserName = "antonsjelchins" },
+                    new Member { Name = "Vladislavs Ķemers", Gender = "male", UserName = "antonsjelchins" },
+                    new Member { Name = "Anastasija Elksnite", Gender = "female", UserName = "antonsjelchins" }
                 };
 
                 context.Members.AddRange(members);

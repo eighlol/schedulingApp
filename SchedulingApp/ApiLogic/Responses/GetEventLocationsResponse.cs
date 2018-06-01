@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SchedulingApp.ApiLogic.Responses.Dtos;
 
 namespace SchedulingApp.ApiLogic.Responses
 {
@@ -7,6 +8,6 @@ namespace SchedulingApp.ApiLogic.Responses
     {
         public Guid EventId { get; set; }
 
-        public List<Dtos.LocationDto> Locations { get; set; }
+        public List<LocationDto> Locations { get; set; }
     }
 }

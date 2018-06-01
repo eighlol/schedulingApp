@@ -1,8 +1,6 @@
 ﻿using System.Linq;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using SchedulingApp.Domain.Entities;
 
 namespace SchedulingApp.Infrastucture.Sql

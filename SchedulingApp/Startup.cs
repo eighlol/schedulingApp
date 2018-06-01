@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.PlatformAbstractions;
 using SchedulingApp.ApiLogic.Repositories;
 using SchedulingApp.ApiLogic.Repositories.Interfaces;
 using SchedulingApp.ApiLogic.Services;
@@ -16,9 +19,6 @@ using SchedulingApp.Infrastucture.Filters;
 using SchedulingApp.Infrastucture.Middlewares.Exception;
 using SchedulingApp.Infrastucture.Sql;
 using Swashbuckle.AspNetCore.Swagger;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.Extensions.PlatformAbstractions;
 
 namespace SchedulingApp
 {

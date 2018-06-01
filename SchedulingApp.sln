@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchedulingApp", "SchedulingApp\SchedulingApp.csproj", "{06668A84-AD00-40B0-AB1F-F47394549807}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulingApp.Tesy", "SchedulingApp.Tesy\SchedulingApp.Tesy.csproj", "{E7FC1E00-91D0-49D8-892B-20DE0F0629A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{06668A84-AD00-40B0-AB1F-F47394549807}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06668A84-AD00-40B0-AB1F-F47394549807}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06668A84-AD00-40B0-AB1F-F47394549807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7FC1E00-91D0-49D8-892B-20DE0F0629A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7FC1E00-91D0-49D8-892B-20DE0F0629A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7FC1E00-91D0-49D8-892B-20DE0F0629A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7FC1E00-91D0-49D8-892B-20DE0F0629A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
